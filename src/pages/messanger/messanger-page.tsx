@@ -4,7 +4,7 @@ import { AppLayout } from "../../layout/AppLayout";
 export const MessangerPage = () => {
   return (
     <AppLayout>
-      <section>fff</section>
+      <div>fffff</div>
     </AppLayout>
   );
 };

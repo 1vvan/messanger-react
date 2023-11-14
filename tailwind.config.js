@@ -26,6 +26,10 @@ module.exports = {
             screens: {
                 'md': '992px',
             },
+            colors: {
+                'primary-dark': '#233447',
+                'secondary-dark': '#3b536c',
+            }
         },
     },
     plugins: [],
