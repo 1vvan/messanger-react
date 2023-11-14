@@ -12,19 +12,24 @@
     opacity: 0;
     pointer-events: none;
     transition: all .3s ease 0s;
+    &-active{
+        opacity: 1;
+        pointer-events: all;
+    }
     &__content{
         padding: 20px;
         border-radius: 12px;
-        background-color: #fff;
-        width: 50vw;
+        width: 30vw;
         transform: scale(0.8);
         transition: all .3s ease 0s;
         &-active{
             transform: scale(1);
         }
     }
-    &-active{
-        opacity: 1;
-        pointer-events: all;
+    &__header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 20px;
     }
 }
