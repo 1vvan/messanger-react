@@ -3,7 +3,7 @@ export const ROUTES = {
         path: '/login'
     },
     MESSANGER: {
-        path: '/messanger'
+        path: '/'
     },
     ERROR: {
         path: '/error'
