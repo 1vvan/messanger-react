@@ -1,56 +1,51 @@
 import React from "react";
+import { Backdrop, Fade, Modal } from "@mui/material";
 import styles from "./modal.module.scss";
-import clsx from "clsx";
 import { Icon } from "@/UI/icon/icon";
 import { ICON_COLLECTION } from "@/UI/icon/icon-list";
-import { useTheme } from "../theme-context/theme-context";
 
 interface ModalProps {
   active: boolean;
   setActive: (boolean) => void;
+  title?: string;
 }
 
 export const ModalWrapper: React.FC<React.PropsWithChildren<ModalProps>> = ({
   active,
   setActive,
+  title,
   children,
 }) => {
-  const {theme} = useTheme()
+  const handleClose = () => setActive(false);
+
   return (
-    <div
-      className={clsx(styles["modal"], {
-        [styles["modal-active"]]: active,
-      })}
-      onClick={() => setActive(false)}
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={active}
+      onClose={handleClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
+      }}
     >
-      <div
-        className={clsx(
-          styles["modal__content"],
-          "bg-white dark:bg-dark-blue",
-          {
-            [styles["modal__content-active"]]: active,
-          }
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className={clsx(styles["modal__header"])}>
-          <h4 className="font-medium text-l text-gray-900 dark:text-gray-300">
-            Settings
-          </h4>
-          <button
-            onClick={() => setActive(false)}
-            className="flex items-center justify-center"
-          >
-            <Icon
-              icon={ICON_COLLECTION.cross}
-              iconSize="32px"
-              iconColor={theme === "dark" ? "#E0E0E0" : "#000"}
-              hoverColor="#B3B3B3"
-            />
-          </button>
+      <Fade in={active}>
+        <div className={styles["modal__box"]}>
+          <div className={styles["modal__header"]}>
+            <h4>{title}</h4>
+            <button onClick={handleClose}>
+              <Icon
+                icon={ICON_COLLECTION.cross}
+                iconSize="32px"
+              />
+            </button>
+          </div>
+          {children}
         </div>
-        {children}
-      </div>
-    </div>
+      </Fade>
+    </Modal>
   );
 };

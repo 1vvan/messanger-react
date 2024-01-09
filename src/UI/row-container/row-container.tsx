@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from "react";
+import styles from './row-container.module.scss'
 
 interface RowContainerProps {
     label: string
@@ -6,8 +7,8 @@ interface RowContainerProps {
 
 export const RowContainer: React.FC<PropsWithChildren<RowContainerProps>> = ({label, children}) => {
     return (
-      <div className="flex items-center gap-5">
-            <h3 className="text-l font-medium text-gray-900 dark:text-gray-300">{label}</h3>
+      <div className={styles['row-container']}>
+            <h3>{label}</h3>
             {children}
       </div>
     );

@@ -1,14 +1,17 @@
 import React from "react";
 import { AppLayout } from "../../layout/AppLayout";
+import styles from './messanger-page.module.scss'
 
 export const MessangerPage = () => {
   return (
     <AppLayout>
-      <div className="flex items-center justify-center h-full w-full">
-        <h3 className="font-medium text-gray-900 dark:text-gray-300 text-xl">
+      <section
+        className={styles['messanger']}
+      >
+        <h3>
           Choose Chat
         </h3>
-      </div>
+      </section>
     </AppLayout>
   );
 };

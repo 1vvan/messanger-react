@@ -1,4 +1,3 @@
-import { ReactComponent as User } from "../../assets/icons/collection/user.svg";
 import { ReactComponent as Settings } from "../../assets/icons/collection/settings.svg";
 import { ReactComponent as Cross } from "../../assets/icons/collection/cross.svg";
 import { ReactComponent as Logout } from "../../assets/icons/collection/logout.svg";
@@ -7,7 +6,6 @@ import { ReactComponent as ReadIcon } from "../../assets/icons/collection/read.s
 import { ReactComponent as Logo } from "../../assets/icons/collection/logo-messager.svg";
 
 export const ICON_COLLECTION = {
-  user: User,
   settings: Settings,
   cross: Cross,
   logout: Logout,
