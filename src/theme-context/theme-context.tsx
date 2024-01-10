@@ -11,7 +11,7 @@ export const tokens = (mode: string) => ({
         },
         font: {
           primary: "#fff",
-          dark: "",
+          dark: "#000",
         },
       }
     : {

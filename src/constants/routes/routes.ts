@@ -2,6 +2,9 @@ export const ROUTES = {
     LOGIN: {
         path: '/login'
     },
+    REGISTRATION: {
+        path: '/registration'
+    },
     MESSANGER: {
         path: '/'
     },

@@ -9,6 +9,7 @@ import { useMode } from "../../theme-context/theme-context";
 import styles from "./sidebar.module.scss";
 import { Avatar } from "@mui/material";
 import { themeColorsInit } from "@/assets/scss/variables/variables";
+import { logout } from "@/pages/auth/login/use-login";
 
 export const Sidebar = () => {
   const [activeModal, setActiveModal] = useState(false);
@@ -39,7 +40,7 @@ export const Sidebar = () => {
                 hoverColor="#B3B3B3"
               />
             </button>
-            <button>
+            <button onClick={logout}>
               <Icon
                 icon={ICON_COLLECTION.logout}
                 iconSize="32px"
@@ -74,7 +75,11 @@ export const Sidebar = () => {
           </div>
         </div>
       </section>
-      <ModalWrapper active={activeModal} setActive={setActiveModal} title="Settings">
+      <ModalWrapper
+        active={activeModal}
+        setActive={setActiveModal}
+        title="Settings"
+      >
         <RowContainer label="Dark Mode">
           <Switch
             onChange={toggleColorMode}
