@@ -1,0 +1,9 @@
+.row-container{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    & h3{
+        font-size: 15px;
+        color: var(--font-primary-color);
+    }
+}
