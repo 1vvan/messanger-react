@@ -49,6 +49,7 @@ export const UserRow: React.FC<UserRowProps> = ({
                   ? ICON_COLLECTION.readIcon
                   : ICON_COLLECTION.sendIcon
               }
+              hasStroke={false}
               iconSize="12px"
               iconColor={"#27AE60"}
             />

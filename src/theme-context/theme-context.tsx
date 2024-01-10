@@ -10,6 +10,7 @@ export const tokens = (mode: string) => ({
           darked: "#1a222c",
         },
         font: {
+          light: "#fff",
           primary: "#fff",
           dark: "#000",
         },
@@ -21,6 +22,7 @@ export const tokens = (mode: string) => ({
           darked: "#FAFAFA",
         },
         font: {
+          light: "#000000a6",
           primary: "#000",
           dark: "#00000073",
         },
@@ -98,7 +100,7 @@ export const ColorModeContext = createContext<{
 export const useMode = () => {
   const [mode, setMode] = useState<string>(() => {
     const storedMode = localStorage.getItem("themeMode");
-    return storedMode || "dark";
+    return storedMode || "light";
   });
 
   const toggleColorMode = () => {
