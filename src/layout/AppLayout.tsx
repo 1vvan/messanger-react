@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar } from "../components/sidebar/Sidebar";
+import { Sidebar } from "../pages/messanger/components/sidebar/Sidebar";
 import styles from "./app-layout.module.scss";
 
 export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {

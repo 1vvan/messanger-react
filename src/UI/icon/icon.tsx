@@ -8,6 +8,7 @@ interface IconProps {
   iconColor?: string;
   iconSize?: string;
   hoverColor?: string;
+  hasStroke?: boolean
 }
 
 export const Icon: React.FC<IconProps> = ({
@@ -16,6 +17,7 @@ export const Icon: React.FC<IconProps> = ({
   iconColor,
   iconSize,
   hoverColor,
+  hasStroke = true,
 }) => {
   const Component = icon;
 
@@ -46,7 +48,7 @@ export const Icon: React.FC<IconProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Component stroke="currentColor" fill="none" />
+      <Component stroke={hasStroke && "currentColor"} fill={hasStroke ? "none" : "currentColor"} />
     </span>
   );
 };

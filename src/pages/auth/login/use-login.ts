@@ -9,6 +9,7 @@ interface LoginData {
 
 export const logout = () => {
   localStorage.removeItem("accessToken");
+  localStorage.removeItem("themeMode");
   document.location.href = ROUTES.LOGIN.path;
 };
 

@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { UserRow } from "../../UI/user-row/user-row";
 import { ICON_COLLECTION } from "@/UI/icon/icon-list";
 import { Icon } from "@/UI/icon/icon";
-import { ModalWrapper } from "../modal/modal";
+import { ModalWrapper } from "../../../../components/modal/modal";
 import Switch from "react-switch";
 import { RowContainer } from "@/UI/row-container/row-container";
-import { useMode } from "../../theme-context/theme-context";
+import { useMode } from "../../../../theme-context/theme-context";
 import styles from "./sidebar.module.scss";
 import { Avatar } from "@mui/material";
 import { themeColorsInit } from "@/assets/scss/variables/variables";
 import { logout } from "@/pages/auth/login/use-login";
+import { ChatsList } from "../chats-list/ChatsList";
+import { clsx } from 'clsx';
+
+const menu = [
+  { id: 1, icon: ICON_COLLECTION.planet },
+  { id: 2, icon: ICON_COLLECTION.chat },
+  { id: 3, icon: ICON_COLLECTION.video },
+  { id: 4, icon: ICON_COLLECTION.music },
+  { id: 5, icon: ICON_COLLECTION.date },
+];
 
 export const Sidebar = () => {
   const [activeModal, setActiveModal] = useState(false);
   const { theme, toggleColorMode, mode } = useMode();
+  const [selectedMenuItem, setSelectedMenuItem] = useState<number>(2)
 
   useEffect(() => {
     themeColorsInit(theme);
@@ -30,6 +40,25 @@ export const Sidebar = () => {
             />
             <Avatar alt="User" sx={{ width: 32, height: 32 }} />
             <span className={styles["sidebar__left_icons-line"]}></span>
+          </div>
+          <div className={styles["sidebar__left_menu"]}>
+            {menu.map((item) => (
+              <div
+                className={clsx(styles["sidebar__left_menu-item"], {
+                  [styles["sidebar__left_menu-item--active"]]:
+                    selectedMenuItem === item.id,
+                })}
+                onClick={() => setSelectedMenuItem(item.id)}
+              >
+                <Icon
+                  icon={item.icon}
+                  key={item.id}
+                  iconSize="24px"
+                  iconColor={selectedMenuItem === item.id ? "#fff" : "#27AE60"}
+                  hasStroke={false}
+                />
+              </div>
+            ))}
           </div>
           <div className={styles["sidebar__left_settings"]}>
             <button onClick={() => setActiveModal(true)}>
@@ -50,30 +79,7 @@ export const Sidebar = () => {
             </button>
           </div>
         </div>
-        <div className={styles["sidebar__chats"]}>
-          <h1>Messages</h1>
-          <div className={styles["sidebar__chats_list"]}>
-            <UserRow
-              userName="John Doe"
-              message="How are you doing?"
-              status="readed"
-              time="16:45"
-            />
-            <UserRow
-              userName="Travis Barker"
-              message=""
-              status="readed"
-              isTyping={true}
-              time="8:15"
-            />
-            <UserRow
-              userName="Kate Rose"
-              message="you: See you tomorrow!"
-              status="sended"
-              time="12:45"
-            />
-          </div>
-        </div>
+        <ChatsList />
       </section>
       <ModalWrapper
         active={activeModal}

@@ -4,8 +4,13 @@
     align-items: center;
     justify-content: flex-start;
     gap: 8px;
-    padding: 0px 25px 0px 20px;
+    padding: 10px 25px 10px 20px;
     cursor: pointer;
+    transition: all .3s ease 0s;
+    &:hover{
+        background: var(--bg-darked-color);
+        transition: all .3s ease 0s;
+    }
     &__avatar{
         position: relative;
         border-radius: 50%;
