@@ -13,28 +13,28 @@ function App() {
   const { commands } = useLogin();
   const { theme, toggleColorMode, mode } = useMode();
   return (
-    <ColorModeContext.Provider value={{ toggleColorMode, mode }}>
-      <CssBaseline>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Routes>
-              <Route
-                path={ROUTES.MESSANGER.path}
-                element={
-                  commands.isAuthenticated() ? (
-                    <MessangerPage />
-                  ) : (
-                    <Navigate to={ROUTES.LOGIN.path} />
-                  )
-                }
-              />
-              <Route path={ROUTES.LOGIN.path} element={<LoginPage />} />
-              <Route path={ROUTES.REGISTRATION.path} element={<RegPage />} />
-            </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-      </CssBaseline>
-    </ColorModeContext.Provider>
+      <ColorModeContext.Provider value={{ toggleColorMode, mode }}>
+        <CssBaseline>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  path={ROUTES.MESSANGER.path}
+                  element={
+                    commands.isAuthenticated() ? (
+                      <MessangerPage />
+                    ) : (
+                      <Navigate to={ROUTES.LOGIN.path} />
+                    )
+                  }
+                />
+                <Route path={ROUTES.LOGIN.path} element={<LoginPage />} />
+                <Route path={ROUTES.REGISTRATION.path} element={<RegPage />} />
+              </Routes>
+            </BrowserRouter>
+          </ThemeProvider>
+        </CssBaseline>
+      </ColorModeContext.Provider>
   );
 }
 

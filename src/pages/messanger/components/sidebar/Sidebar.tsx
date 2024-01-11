@@ -49,6 +49,7 @@ export const Sidebar = () => {
                     selectedMenuItem === item.id,
                 })}
                 onClick={() => setSelectedMenuItem(item.id)}
+                key={item.id}
               >
                 <Icon
                   icon={item.icon}

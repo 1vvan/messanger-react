@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../login-page.module.scss";
 import {
   Button,
+  CircularProgress,
   FormControl,
   FormHelperText,
   IconButton,
@@ -25,6 +26,16 @@ export const RegPage = () => {
         className={styles["auth__form"]}
         noValidate
       >
+        {models.isLoading && (
+          <CircularProgress
+            sx={{
+              position: "absolute",
+              top: "24px",
+              right: "30px",
+            }}
+            size={24}
+          />
+        )}
         <h2>Registration</h2>
         <TextField
           autoComplete="off"

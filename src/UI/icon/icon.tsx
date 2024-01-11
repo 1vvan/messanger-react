@@ -48,7 +48,7 @@ export const Icon: React.FC<IconProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Component stroke={hasStroke && "currentColor"} fill={hasStroke ? "none" : "currentColor"} />
+      <Component stroke={hasStroke ? "currentColor" : 'none'} fill={hasStroke ? "none" : "currentColor"} />
     </span>
   );
 };

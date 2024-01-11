@@ -1,28 +1,27 @@
 import { ROUTES } from "@/constants/routes/routes";
 import { useState } from "react";
 import { loginSchema } from "../schemas/loginSchema";
-
-interface LoginData {
-  email: string;
-  password: string;
-}
+import { useFetchLoginMutation } from "@/services/userApi";
+import { LoginDTO, LoginResponce } from "@/models/api-types/user-api-types";
 
 export const logout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("themeMode");
+  localStorage.removeItem("userId");
   document.location.href = ROUTES.LOGIN.path;
 };
 
 export const useLogin = () => {
-  const [loginData, setLoginData] = useState<LoginData>({
+  const [loginData, setLoginData] = useState<LoginDTO>({
     email: "",
     password: "",
   });
-  const [loginErrors, setLoginErrors] = useState<LoginData>({
+  const [loginErrors, setLoginErrors] = useState<LoginDTO>({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [login, {isLoading}] = useFetchLoginMutation()
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -50,11 +49,11 @@ export const useLogin = () => {
       setLoginErrors({ email: "", password: "" });
       return true;
     } catch (error: any) {
-      const validationErrors: Partial<LoginData> = {};
+      const validationErrors: Partial<LoginDTO> = {};
       error.inner.forEach((e) => {
         validationErrors[e.path] = e.message;
       });
-      setLoginErrors(validationErrors as LoginData);
+      setLoginErrors(validationErrors as LoginDTO);
       return false;
     }
   };
@@ -62,9 +61,12 @@ export const useLogin = () => {
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     if (await handleLoginValidation()) {
-      console.log(loginData);
-      localStorage.setItem("accessToken", "123");
-      document.location.href = ROUTES.MESSANGER.path;
+      login(loginData).then((response) => {
+        const responseData = response as { data: LoginResponce };
+        localStorage.setItem("accessToken", responseData.data.token);
+        localStorage.setItem("userId", responseData.data.user.id.toString());
+        // document.location.href = ROUTES.MESSANGER.path;
+      });
     }
   };
 
@@ -73,6 +75,7 @@ export const useLogin = () => {
       showPassword,
       loginData,
       loginErrors,
+      isLoading,
     },
     commands: {
       isAuthenticated,

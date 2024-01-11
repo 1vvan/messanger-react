@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../login-page.module.scss";
 import {
   Button,
+  CircularProgress,
   FormControl,
   FormHelperText,
   IconButton,
@@ -17,6 +18,7 @@ import { ROUTES } from "@/constants/routes/routes";
 
 export const LoginPage = () => {
   const { models, commands } = useLogin();
+console.log(process.env.REACT_APP_API_BASE_URL);
   return (
     <section className={styles["auth"]}>
       <form
@@ -25,6 +27,16 @@ export const LoginPage = () => {
         className={styles["auth__form"]}
         noValidate
       >
+        {models.isLoading && (
+          <CircularProgress
+            sx={{
+              position: "absolute",
+              top: "24px",
+              right: "30px",
+            }}
+            size={24}
+          />
+        )}
         <h2>Login</h2>
         <TextField
           autoComplete="off"
