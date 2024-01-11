@@ -8,11 +8,12 @@ export const tokens = (mode: string) => ({
           light: "#293646",
           primary: "#1A222C",
           darked: "#1a222c",
+          dark: "#141b23",
         },
         font: {
           light: "#fff",
           primary: "#fff",
-          dark: "#000",
+          dark: "#fff",
         },
       }
     : {
@@ -20,6 +21,7 @@ export const tokens = (mode: string) => ({
           light: "#fff",
           primary: "#fff",
           darked: "#FAFAFA",
+          dark: "#EEEEEE",
         },
         font: {
           light: "#000000a6",
@@ -37,9 +39,10 @@ export const themeSettings: any = (mode: string) => {
       ...(mode === "dark"
         ? {
             background: {
-              dark: colors.background.darked,
+              darked: colors.background.darked,
               primary: colors.background.primary,
               light: colors.background.light,
+              dark: colors.background.dark,
             },
             font: {
               primary: colors.font.primary,
@@ -48,9 +51,10 @@ export const themeSettings: any = (mode: string) => {
           }
         : {
             background: {
-              dark: colors.background.darked,
+              darked: colors.background.darked,
               primary: colors.background.primary,
               light: colors.background.light,
+              dark: colors.background.dark,
             },
             font: {
               primary: colors.font.primary,

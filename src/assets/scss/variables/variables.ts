@@ -5,7 +5,8 @@ export const themeColorsInit = (theme) => {
     "--font-darked-color": theme.palette.font.dark,
     "--bg-light-color": theme.palette.background.light,
     "--bg-primary-color": theme.palette.background.primary,
-    "--bg-darked-color": theme.palette.background.dark,
+    "--bg-darked-color": theme.palette.background.darked,
+    "--bg-dark-color": theme.palette.background.dark,
   };
 
   for (const key in colors) {

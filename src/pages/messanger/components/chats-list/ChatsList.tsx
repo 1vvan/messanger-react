@@ -1,9 +1,36 @@
 import React from "react";
-import { UserRow } from "@/UI/user-row/user-row";
+import { Status, UserRow } from "@/UI/user-row/user-row";
 import styles from "./chats-list.module.scss";
 import { Icon } from "@/UI/icon/icon";
 import { ICON_COLLECTION } from "@/UI/icon/icon-list";
 import Select from "react-select";
+
+const chats = [
+  {
+    id: 1,
+    name: "John Doe",
+    status: "readed" as Status,
+    time: "16:45",
+    message: "How are you doing?",
+    isTyping: false,
+  },
+  {
+    id: 2,
+    name: "Travis Barker",
+    status: "readed" as Status,
+    time: "8:15",
+    message: "",
+    isTyping: true,
+  },
+  {
+    id: 3,
+    name: "Kate Rose",
+    status: "sended" as Status,
+    time: "12:45",
+    message: "you: See you tomorrow!",
+    isTyping: false,
+  },
+];
 
 const sortOptions = [
   { value: "time", label: "Newest" },
@@ -81,25 +108,16 @@ export const ChatsList = () => {
         />
       </div>
       <div className={styles["sidebar__chats_list"]}>
-        <UserRow
-          userName="John Doe"
-          message="How are you doing?"
-          status="readed"
-          time="16:45"
-        />
-        <UserRow
-          userName="Travis Barker"
-          message=""
-          status="readed"
-          isTyping={true}
-          time="8:15"
-        />
-        <UserRow
-          userName="Kate Rose"
-          message="you: See you tomorrow!"
-          status="sended"
-          time="12:45"
-        />
+        {chats.map((item) => (
+          <UserRow
+            key={item.id}
+            userName={item.name}
+            message={item.message}
+            status={item.status}
+            time={item.time}
+            isTyping={item.isTyping}
+          />
+        ))}
       </div>
     </div>
   );

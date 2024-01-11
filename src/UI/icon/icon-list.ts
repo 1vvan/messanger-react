@@ -10,6 +10,7 @@ import { ReactComponent as Chat } from "../../assets/icons/collection/chats.svg"
 import { ReactComponent as Music } from "../../assets/icons/collection/music.svg";
 import { ReactComponent as Video } from "../../assets/icons/collection/video.svg";
 import { ReactComponent as Date } from "../../assets/icons/collection/date.svg";
+import { ReactComponent as Info } from "../../assets/icons/collection/info.svg";
 
 export const ICON_COLLECTION = {
   settings: Settings,
@@ -23,7 +24,8 @@ export const ICON_COLLECTION = {
   chat: Chat,
   music: Music,
   video: Video,
-  date: Date
+  date: Date,
+  info: Info,
 };
 
 type Keys = keyof typeof ICON_COLLECTION;

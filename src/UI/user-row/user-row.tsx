@@ -5,7 +5,7 @@ import clsx from "clsx";
 import styles from './user-row.module.scss'
 import { Avatar } from "@mui/material";
 
-type Status = "sended" | "readed";
+export type Status = "sended" | "readed";
 interface UserRowProps {
   userName: string;
   message: string;

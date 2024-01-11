@@ -1,4 +1,4 @@
-.sidebar{
+.sidebar {
     position: fixed;
     z-index: 99;
     top: 0;
@@ -9,19 +9,21 @@
     justify-items: center;
 }
 
-.sidebar__left{
+.sidebar__left {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 21px 6px;
     background: var(--bg-darked-color);
-    &_icons{
+
+    &_icons {
         padding: 0px 5px;
         display: flex;
         flex-direction: column;
         gap: 14px;
-        &-line{
+
+        &-line {
             margin-top: 10px;
             height: 1px;
             width: 100%;
@@ -29,37 +31,51 @@
             opacity: 0.1;
         }
     }
-    &_menu{
+
+    &_menu {
         display: flex;
         flex-direction: column;
         gap: 6px;
         padding-top: 14px;
         margin-bottom: auto;
-        &-item{
+
+        &-item {
             padding: 10px;
             max-height: 44px;
             border-radius: 16px;
             cursor: pointer;
             transition: all .3s ease 0s;
-            &--active{
+
+            &--active {
                 background-color: #27AE60;
-                &:hover{
+
+                &:hover {
                     background-color: #1e884a;
                     transition: all .3s ease 0s;
                 }
             }
-            & svg{
+
+            &:hover {
+                & span {
+                    opacity: 0.8;
+                    transition: all .3s ease 0s;
+                }
+            }
+
+            & svg {
                 max-height: 24px;
             }
         }
     }
-    &_settings{
+
+    &_settings {
         padding: 0px 5px;
         display: flex;
         flex-direction: column;
         gap: 20px;
         align-items: center;
-        & button{
+
+        & button {
             display: flex;
             align-items: center;
             justify-content: center;
