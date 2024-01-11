@@ -1,13 +1,16 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { ROUTES } from "./constants/routes/routes";
-import { MessangerPage } from "./pages/messanger/messanger-page";
-import "./assets/scss/App.scss";
-import { LoginPage } from "./pages/auth/login/login-page";
-import { ColorModeContext, useMode } from "./theme-context/theme-context";
+import { ROUTES } from "./shared/constants/routes/routes";
+import { MessangerPage } from "./modules/messanger/messanger-page";
+import "./shared/assets/scss/App.scss";
+import { LoginPage } from "./modules/auth/login/login-page";
+import {
+  ColorModeContext,
+  useMode,
+} from "./shared/theme-context/theme-context";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { useLogin } from "./pages/auth/login/use-login";
-import { RegPage } from "./pages/auth/reg/reg-page";
+import { useLogin } from "./modules/auth/login/use-login";
+import { RegPage } from "./modules/auth/reg/reg-page";
 
 function App() {
   const { commands } = useLogin();

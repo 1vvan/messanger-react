@@ -1,0 +1,45 @@
+.chat-window__top-bar{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-light-color);
+    border-bottom: 1px solid var(--bg-dark-color);
+    padding: 11px 9px;
+    &_user{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        &-name{
+            & h6{
+                font-weight: 500;
+                font-size: 16px;
+                color: var(--font-primary-color);
+            }
+            & span{
+                font-size: 14px;
+                color: #27AE60;
+            }
+        }
+    }
+    &_buttons{
+        display: flex;
+        &-item{
+            padding: 10px;
+            cursor: pointer;
+            transition: all .3s ease 0s;
+            &:hover{
+                opacity: 0.7;
+                transition: all .3s ease 0s;
+            }
+            &:last-child{
+                & span{
+                    color: var(--font-darked-color) !important;
+                }
+            }
+            & svg{
+                min-width: 24px;
+            }
+        }
+    }
+}
