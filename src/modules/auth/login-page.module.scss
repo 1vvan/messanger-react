@@ -1,0 +1,54 @@
+.auth{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1A222C;
+    position: relative;
+    padding: 0px 30px;
+    &:after{
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 64px;
+        height: 64px;
+        background-image: url('../../shared/assets/icons/collection/logo-messager.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    &:before{
+        content: 'Messanger';
+        position: absolute;
+        top: 30px;
+        left: 86px;
+        color: #27AE60;
+        font-family: "SF Pro Display", sans-serif;
+        font-size: 24px;
+    }
+    &__form{
+        width: 100%;
+        max-width: 500px;
+        padding: 24px;
+        border-radius: 8px;
+        background: #fff;
+        position: relative;
+        & h2{
+            font-size: 18px;
+            text-align: center;
+            font-weight: 700;
+            padding-bottom: 24px;
+        }
+        &_link{
+            font-family: "SF Pro Display", sans-serif;
+            text-align: center;
+            padding-top: 10px;
+        }
+        & p{
+            margin-left: 2px;
+            font-size: 14px;
+            margin-top: 3px;
+        }
+    }
+}
