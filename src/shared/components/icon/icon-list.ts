@@ -1,16 +1,16 @@
-import { ReactComponent as Settings } from "../../shared/assets/icons/collection/settings.svg";
-import { ReactComponent as Cross } from "../../shared/assets/icons/collection/cross.svg";
-import { ReactComponent as Logout } from "../../shared/assets/icons/collection/logout.svg";
-import { ReactComponent as SendIcon } from "../../shared/assets/icons/collection/send.svg";
-import { ReactComponent as ReadIcon } from "../../shared/assets/icons/collection/read.svg";
-import { ReactComponent as Logo } from "../../shared/assets/icons/collection/logo-messager.svg";
-import { ReactComponent as Search } from "../../shared/assets/icons/collection/search.svg";
-import { ReactComponent as Planet } from "../../shared/assets/icons/collection/planet.svg";
-import { ReactComponent as Chat } from "../../shared/assets/icons/collection/chats.svg";
-import { ReactComponent as Music } from "../../shared/assets/icons/collection/music.svg";
-import { ReactComponent as Video } from "../../shared/assets/icons/collection/video.svg";
-import { ReactComponent as Date } from "../../shared/assets/icons/collection/date.svg";
-import { ReactComponent as Info } from "../../shared/assets/icons/collection/info.svg";
+import { ReactComponent as Settings } from "../../assets/icons/collection/settings.svg";
+import { ReactComponent as Cross } from "../../assets/icons/collection/cross.svg";
+import { ReactComponent as Logout } from "../../assets/icons/collection/logout.svg";
+import { ReactComponent as SendIcon } from "../../assets/icons/collection/send.svg";
+import { ReactComponent as ReadIcon } from "../../assets/icons/collection/read.svg";
+import { ReactComponent as Logo } from "../../assets/icons/collection/logo-messager.svg";
+import { ReactComponent as Search } from "../../assets/icons/collection/search.svg";
+import { ReactComponent as Planet } from "../../assets/icons/collection/planet.svg";
+import { ReactComponent as Chat } from "../../assets/icons/collection/chats.svg";
+import { ReactComponent as Music } from "../../assets/icons/collection/music.svg";
+import { ReactComponent as Video } from "../../assets/icons/collection/video.svg";
+import { ReactComponent as Date } from "../../assets/icons/collection/date.svg";
+import { ReactComponent as Info } from "../../assets/icons/collection/info.svg";
 
 export const ICON_COLLECTION = {
   settings: Settings,
