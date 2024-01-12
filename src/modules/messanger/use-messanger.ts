@@ -6,6 +6,7 @@ import { useState } from "react";
 export const useMessanger = () => {
     const { data: user } = userApi.useGetCurrentUserQuery('');
     const { data: userChats, isLoading: isChatsLoading } = chatsApi.useGetAllUserChatsQuery('');
+    chatsApi.useGetAllUserChatsQuery("");
     const [selectedChat, setSelectedChat] = useState<IChat>();
     const handleSelectChat = (chatId) => {
         const chatToFind = userChats && userChats[chatId];

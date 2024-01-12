@@ -19,7 +19,7 @@ export const MessangerPage = () => {
       />
       <section className={styles["messanger"]}>
         {!!models.selectedChat ? (
-          <ChatWindow />
+          <ChatWindow chatId={models.selectedChat.last_message.chat_id} />
         ) : (
           <h3 className={styles["messanger__empty"]}>Choose Chat</h3>
         )}

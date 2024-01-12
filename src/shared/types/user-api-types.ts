@@ -18,20 +18,33 @@ export interface RegisterDTO {
   lang: string;
 }
 
+export interface ISingleChat {
+  id: number;
+  messages: IMessage[];
+  name: string;
+  muted: number;
+  avatar: string;
+  hasMore: boolean;
+}
+
+interface IMessage {
+  id: number;
+  message: string;
+  user_id: number;
+  chat_id: number;
+  read: number;
+  created_at: string;
+  updated_at: string;
+  attachment: null | string;
+  attachment_type: null | string;
+  fromYou: boolean;
+}
+
+
 export interface IChat {
   avatar: string;
   name: string;
-  last_message: {
-    id: number;
-    message: string;
-    user_id: number;
-    chat_id: number;
-    read: number;
-    created_at: string;
-    updated_at: string;
-    attachment: null | any; 
-    attachment_type: null | string; 
-  };
+  last_message: IMessage;
   unread_count: number;
   muted: number;
   messages: any[];
@@ -40,3 +53,4 @@ export interface IChat {
 export interface ChatsResponse {
   [chatId: string]: IChat;
 }
+

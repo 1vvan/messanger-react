@@ -5,7 +5,6 @@ import clsx from "clsx";
 import styles from "./user-row.module.scss";
 import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
 import {
-  defaultUserImage,
   handleImageError,
 } from "@/shared/helpers/imageError";
 import { CircularProgress } from "@mui/material";

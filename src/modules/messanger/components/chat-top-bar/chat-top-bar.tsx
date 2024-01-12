@@ -1,16 +1,33 @@
 import React from "react";
 import styles from "./chat-top-bar.module.scss";
-import { Avatar } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import { Icon } from "@/shared/components/icon/icon";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
+import { ISingleChat } from "@/shared/types/user-api-types";
+import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
+import { handleImageError } from "@/shared/helpers/imageError";
 
-export const ChatTopBar = () => {
+interface ChatTopBarProps {
+  chat: ISingleChat | undefined;
+}
+
+export const ChatTopBar: React.FC<ChatTopBarProps> = ({ chat }) => {
   return (
     <div className={styles["chat-window__top-bar"]}>
       <div className={styles["chat-window__top-bar_user"]}>
-        <Avatar sx={{ width: 42, height: 42 }} />
+        <div className={styles["chat-window__top-bar_user-avatar"]}>
+          {chat?.avatar ? (
+              <img
+                src={BASE_API_IMG_URL + chat?.avatar}
+                alt="User"
+                onError={handleImageError}
+              />
+          ) : (
+            <CircularProgress size={24} />
+          )}
+        </div>
         <div className={styles["chat-window__top-bar_user-name"]}>
-          <h6>Travis Barker</h6>
+          <h6>{chat?.name}</h6>
           <span>Online</span>
         </div>
       </div>

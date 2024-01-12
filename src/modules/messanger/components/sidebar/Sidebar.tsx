@@ -12,7 +12,7 @@ import { ChatsList } from "../chats-list/ChatsList";
 import { clsx } from "clsx";
 import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
 import { ChatsResponse } from "@/shared/types/user-api-types";
-import { defaultUserImage, handleImageError } from "@/shared/helpers/imageError";
+import { handleImageError } from "@/shared/helpers/imageError";
 import { CircularProgress } from "@mui/material";
 
 const menu = [
