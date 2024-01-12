@@ -8,6 +8,7 @@ import {
   handleImageError,
 } from "@/shared/helpers/imageError";
 import { CircularProgress } from "@mui/material";
+import { truncateText } from '../../helpers/trunscateText';
 
 export type Status = "sended" | "readed";
 interface UserRowProps {
@@ -70,7 +71,7 @@ export const UserRow: React.FC<UserRowProps> = ({
               [styles["user-row__info_row-message--typing"]]: isTyping,
             })}
           >
-            {isTyping ? "... is typing" : message}
+            {isTyping ? "... is typing" : truncateText(message, 30)}
           </h4>
           <span>
             <Icon
