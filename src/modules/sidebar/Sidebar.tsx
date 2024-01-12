@@ -19,6 +19,7 @@ import { AccountSettingsModalForm } from "./components/account-settings-modal-fo
 import { accountSettingsSchema } from "@/shared/schemas/accountSettingsSchema";
 import { useUpdateUserMutation } from "@/app/services/userApi";
 import { toast } from "react-toastify";
+import { useSidebar } from "./use-sidebar";
 
 const menu = [
   { id: 1, icon: ICON_COLLECTION.planet },
@@ -41,64 +42,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isChatsLoading,
   handleSelectChat,
 }) => {
-  const [activeModal, setActiveModal] = useState(false);
+  const { models, commands } = useSidebar({
+    user,
+  });
   const { theme, toggleColorMode, mode } = useMode();
-  const [selectedMenuItem, setSelectedMenuItem] = useState<number>(2);
-  const [isUpdateUser, setIsUpdateUser] = useState(true);
-  const [settingsFormData, setSettingFormData] = useState<IAccountSettings>({
-    nickname: "",
-  });
-  const [formDataErorrs, setFormDataErorrs] = useState<IAccountSettings>({
-    nickname: "",
-  });
-  const [updateUser, { data }] = useUpdateUserMutation();
-
-  useEffect(() => {
-    if (user?.nickname) {
-      setSettingFormData({
-        nickname: user?.nickname,
-      });
-    }
-  }, [user?.nickname]);
-
-  const validateForm = async () => {
-    try {
-      await accountSettingsSchema.validate(settingsFormData, {
-        abortEarly: false,
-      });
-      return true;
-    } catch (error: any) {
-      const validationErrors = { nickname: "" };
-      error.inner.forEach((e) => {
-        validationErrors[e.path] = e.message;
-      });
-      setFormDataErorrs(validationErrors);
-      return false;
-    }
-  };
-
-  const handleChangeFormData = (key, value) => {
-    setSettingFormData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-  };
-
-  const handleConfirmUpdateAccount = async (e) => {
-    e.preventDefault();
-    if (await validateForm()) {
-      if (user?.id) {
-        updateUser({ userId: user.id, data: settingsFormData });
-      }
-      if (data) {
-        setSettingFormData({
-          nickname: data?.nickname,
-        });
-      }
-      toast.success("Update account successfully");
-    }
-  };
-
   useEffect(() => {
     themeColorsInit(theme);
   }, [theme]);
@@ -130,23 +77,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <div
                 className={clsx(styles["sidebar__left_menu-item"], {
                   [styles["sidebar__left_menu-item--active"]]:
-                    selectedMenuItem === item.id,
+                    models.selectedMenuItem === item.id,
                 })}
-                onClick={() => setSelectedMenuItem(item.id)}
+                onClick={() => commands.setSelectedMenuItem(item.id)}
                 key={item.id}
               >
                 <Icon
                   icon={item.icon}
                   key={item.id}
                   iconSize="24px"
-                  iconColor={selectedMenuItem === item.id ? "#fff" : "#27AE60"}
+                  iconColor={
+                    models.selectedMenuItem === item.id ? "#fff" : "#27AE60"
+                  }
                   hasStroke={false}
                 />
               </div>
             ))}
           </div>
           <div className={styles["sidebar__left_settings"]}>
-            <button onClick={() => setActiveModal(true)}>
+            <button onClick={() => commands.setActiveModal(true)}>
               <Icon
                 icon={ICON_COLLECTION.settings}
                 iconSize="32px"
@@ -171,11 +120,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
       </section>
       <ModalWrapper
-        active={activeModal}
-        setActive={setActiveModal}
-        title={isUpdateUser ? "Account Settings" : "Settings"}
+        active={models.activeModal}
+        setActive={commands.setActiveModal}
+        title={models.isUpdateUser ? "Account Settings" : "Settings"}
       >
-        {!isUpdateUser ? (
+        {!models.isUpdateUser ? (
           <>
             <RowContainer label="Dark Mode">
               <Switch
@@ -185,24 +134,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 checkedIcon={false}
               />
             </RowContainer>
-            <Button variant="outlined" onClick={() => setIsUpdateUser(true)}>
+            <Button
+              variant="outlined"
+              onClick={() => commands.setIsUpdateUser(true)}
+            >
               Account Settings
             </Button>
           </>
         ) : (
           <>
             <AccountSettingsModalForm
-              settingsFormData={settingsFormData}
-              formDataErorrs={formDataErorrs}
-              handleChangeFormData={handleChangeFormData}
-              handleConfirmUpdateAccount={handleConfirmUpdateAccount}
+              settingsFormData={models.settingsFormData}
+              formDataErorrs={models.formDataErorrs}
+              handleChangeFormData={commands.handleChangeFormData}
+              handleConfirmUpdateAccount={commands.handleConfirmUpdateAccount}
             />
             <div className={styles["account-setting-form-buttons"]}>
               <Button
                 fullWidth
                 variant="outlined"
                 color="success"
-                onClick={handleConfirmUpdateAccount}
+                onClick={commands.handleConfirmUpdateAccount}
               >
                 Save
               </Button>
@@ -210,7 +162,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 fullWidth
                 variant="outlined"
                 color="error"
-                onClick={() => setIsUpdateUser(false)}
+                onClick={commands.handleCancelUpdate}
               >
                 Cancel
               </Button>
