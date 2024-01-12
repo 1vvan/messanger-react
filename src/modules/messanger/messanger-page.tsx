@@ -2,13 +2,12 @@ import React from "react";
 import { AppLayout } from "../../app/layout/AppLayout";
 import styles from "./messanger-page.module.scss";
 import { ChatWindow } from "./components/chat-window/ChatWindow";
-import { Sidebar } from "./components/sidebar/Sidebar";
+import { Sidebar } from "../sidebar/Sidebar";
 import { useMessanger } from "./use-messanger";
 
 export const MessangerPage = () => {
-  
   const { models, commands } = useMessanger();
-  
+
   return (
     <AppLayout>
       <Sidebar

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import { Icon } from "@/shared/components/icon/icon";
-import { ModalWrapper } from "../../../../shared/components/modal/modal";
+import { ModalWrapper } from "../../shared/components/modal/modal";
 import Switch from "react-switch";
 import { RowContainer } from "@/shared/components/row-container/row-container";
-import { useMode } from "../../../../shared/theme-context/theme-context";
+import { useMode } from "../../shared/theme-context/theme-context";
 import styles from "./sidebar.module.scss";
 import { themeColorsInit } from "@/shared/assets/scss/variables/variables";
 import { logout } from "@/modules/auth/login/use-login";
-import { ChatsList } from "../chats-list/ChatsList";
+import { ChatsList } from "./components/chats-list/ChatsList";
 import { clsx } from "clsx";
 import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
 import { ChatsResponse, IAccountSettings } from "@/shared/types/user-api-types";
 import { handleImageError } from "@/shared/helpers/imageError";
 import { Button, CircularProgress } from "@mui/material";
 import { IUser } from "@/shared/types/IUser";
-import { AccountSettingsModalForm } from "../account-settings-modal-form/account-settings-modal-form";
+import { AccountSettingsModalForm } from "./components/account-settings-modal-form/account-settings-modal-form";
 import { accountSettingsSchema } from "@/shared/schemas/accountSettingsSchema";
 import { useUpdateUserMutation } from "@/app/services/userApi";
 import { toast } from "react-toastify";
@@ -51,7 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const [formDataErorrs, setFormDataErorrs] = useState<IAccountSettings>({
     nickname: "",
   });
-  const [updateUser, {data}] = useUpdateUserMutation()
+  const [updateUser, { data }] = useUpdateUserMutation();
 
   useEffect(() => {
     if (user?.nickname) {
@@ -75,7 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       setFormDataErorrs(validationErrors);
       return false;
     }
-  }
+  };
 
   const handleChangeFormData = (key, value) => {
     setSettingFormData((prevData) => ({
@@ -84,20 +84,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }));
   };
 
-  const handleConfirmUpdateAccount =  async (e) => {
+  const handleConfirmUpdateAccount = async (e) => {
     e.preventDefault();
     if (await validateForm()) {
       if (user?.id) {
-        updateUser({userId: user.id, data: settingsFormData});
+        updateUser({ userId: user.id, data: settingsFormData });
       }
       if (data) {
         setSettingFormData({
-          nickname: data?.nickname
+          nickname: data?.nickname,
         });
       }
-      toast.success('Update account successfully')
+      toast.success("Update account successfully");
     }
-  }
+  };
 
   useEffect(() => {
     themeColorsInit(theme);
