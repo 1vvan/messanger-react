@@ -54,3 +54,11 @@ export interface ChatsResponse {
   [chatId: string]: IChat;
 }
 
+export interface IAccountSettings {
+  nickname: string;
+}
+
+export interface RequestUpdateUserData {
+  userId: number;
+  data: IAccountSettings;
+}

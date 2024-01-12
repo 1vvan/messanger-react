@@ -12,7 +12,7 @@ export const MessangerPage = () => {
   return (
     <AppLayout>
       <Sidebar
-        userAvatar={models.user?.photo}
+        user={models.user}
         userChats={models.userChats && models.userChats}
         isChatsLoading={models.isChatsLoading}
         handleSelectChat={commands.handleSelectChat}

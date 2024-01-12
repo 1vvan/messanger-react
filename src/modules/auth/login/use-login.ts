@@ -1,6 +1,6 @@
 import { ROUTES } from "@/shared/constants/routes/routes";
 import { useState } from "react";
-import { loginSchema } from "../schemas/loginSchema";
+import { loginSchema } from "../../../shared/schemas/loginSchema";
 import { useFetchLoginMutation } from "@/app/services/userApi";
 import { LoginDTO, LoginResponce } from "@/shared/types/user-api-types";
 import { toast } from "react-toastify";

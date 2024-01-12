@@ -11,9 +11,14 @@ import { logout } from "@/modules/auth/login/use-login";
 import { ChatsList } from "../chats-list/ChatsList";
 import { clsx } from "clsx";
 import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
-import { ChatsResponse } from "@/shared/types/user-api-types";
+import { ChatsResponse, IAccountSettings } from "@/shared/types/user-api-types";
 import { handleImageError } from "@/shared/helpers/imageError";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
+import { IUser } from "@/shared/types/IUser";
+import { AccountSettingsModalForm } from "../account-settings-modal-form/account-settings-modal-form";
+import { accountSettingsSchema } from "@/shared/schemas/accountSettingsSchema";
+import { useUpdateUserMutation } from "@/app/services/userApi";
+import { toast } from "react-toastify";
 
 const menu = [
   { id: 1, icon: ICON_COLLECTION.planet },
@@ -24,14 +29,14 @@ const menu = [
 ];
 
 interface SidebarProps {
-  userAvatar: string | undefined;
+  user: IUser | undefined;
   userChats: ChatsResponse | undefined;
   isChatsLoading: boolean;
   handleSelectChat: (chatId) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
-  userAvatar,
+  user,
   userChats,
   isChatsLoading,
   handleSelectChat,
@@ -39,6 +44,60 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const [activeModal, setActiveModal] = useState(false);
   const { theme, toggleColorMode, mode } = useMode();
   const [selectedMenuItem, setSelectedMenuItem] = useState<number>(2);
+  const [isUpdateUser, setIsUpdateUser] = useState(true);
+  const [settingsFormData, setSettingFormData] = useState<IAccountSettings>({
+    nickname: "",
+  });
+  const [formDataErorrs, setFormDataErorrs] = useState<IAccountSettings>({
+    nickname: "",
+  });
+  const [updateUser, {data}] = useUpdateUserMutation()
+
+  useEffect(() => {
+    if (user?.nickname) {
+      setSettingFormData({
+        nickname: user?.nickname,
+      });
+    }
+  }, [user?.nickname]);
+
+  const validateForm = async () => {
+    try {
+      await accountSettingsSchema.validate(settingsFormData, {
+        abortEarly: false,
+      });
+      return true;
+    } catch (error: any) {
+      const validationErrors = { nickname: "" };
+      error.inner.forEach((e) => {
+        validationErrors[e.path] = e.message;
+      });
+      setFormDataErorrs(validationErrors);
+      return false;
+    }
+  }
+
+  const handleChangeFormData = (key, value) => {
+    setSettingFormData((prevData) => ({
+      ...prevData,
+      [key]: value,
+    }));
+  };
+
+  const handleConfirmUpdateAccount =  async (e) => {
+    e.preventDefault();
+    if (await validateForm()) {
+      if (user?.id) {
+        updateUser({userId: user.id, data: settingsFormData});
+      }
+      if (data) {
+        setSettingFormData({
+          nickname: data?.nickname
+        });
+      }
+      toast.success('Update account successfully')
+    }
+  }
 
   useEffect(() => {
     themeColorsInit(theme);
@@ -53,10 +112,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               iconSize="32px"
               iconColor={"#27AE60"}
             />
-            {userAvatar ? (
+            {user?.photo ? (
               <div className={styles["sidebar__left_icons-avatar"]}>
                 <img
-                  src={BASE_API_IMG_URL + userAvatar}
+                  src={BASE_API_IMG_URL + user?.photo}
                   alt="User"
                   onError={handleImageError}
                 />
@@ -114,16 +173,50 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <ModalWrapper
         active={activeModal}
         setActive={setActiveModal}
-        title="Settings"
+        title={isUpdateUser ? "Account Settings" : "Settings"}
       >
-        <RowContainer label="Dark Mode">
-          <Switch
-            onChange={toggleColorMode}
-            checked={mode === "dark" ? true : false}
-            uncheckedIcon={false}
-            checkedIcon={false}
-          />
-        </RowContainer>
+        {!isUpdateUser ? (
+          <>
+            <RowContainer label="Dark Mode">
+              <Switch
+                onChange={toggleColorMode}
+                checked={mode === "dark" ? true : false}
+                uncheckedIcon={false}
+                checkedIcon={false}
+              />
+            </RowContainer>
+            <Button variant="outlined" onClick={() => setIsUpdateUser(true)}>
+              Account Settings
+            </Button>
+          </>
+        ) : (
+          <>
+            <AccountSettingsModalForm
+              settingsFormData={settingsFormData}
+              formDataErorrs={formDataErorrs}
+              handleChangeFormData={handleChangeFormData}
+              handleConfirmUpdateAccount={handleConfirmUpdateAccount}
+            />
+            <div className={styles["account-setting-form-buttons"]}>
+              <Button
+                fullWidth
+                variant="outlined"
+                color="success"
+                onClick={handleConfirmUpdateAccount}
+              >
+                Save
+              </Button>
+              <Button
+                fullWidth
+                variant="outlined"
+                color="error"
+                onClick={() => setIsUpdateUser(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </>
+        )}
       </ModalWrapper>
     </>
   );

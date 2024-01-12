@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { regSchema } from "../schemas/regSchema";
+import { regSchema } from "../../../shared/schemas/regSchema";
 import { useFetchRegisterMutation } from "@/app/services/userApi";
 import { RegisterDTO } from "@/shared/types/user-api-types";
 

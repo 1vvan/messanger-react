@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./chat-top-bar.module.scss";
-import { Avatar, CircularProgress } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { Icon } from "@/shared/components/icon/icon";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import { ISingleChat } from "@/shared/types/user-api-types";
