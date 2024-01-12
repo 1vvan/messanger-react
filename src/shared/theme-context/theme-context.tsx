@@ -14,6 +14,7 @@ export const tokens = (mode: string) => ({
           light: "#fff",
           primary: "#fff",
           dark: "#fff",
+          transparent: "#a1a1a1",
         },
       }
     : {
@@ -27,6 +28,7 @@ export const tokens = (mode: string) => ({
           light: "#000000a6",
           primary: "#000",
           dark: "#00000073",
+          transparent: "#a1a1a1",
         },
       }),
 });
@@ -47,6 +49,7 @@ export const themeSettings: any = (mode: string) => {
             font: {
               primary: colors.font.primary,
               dark: colors.font.dark,
+              transparent: colors.font.transparent,
             },
           }
         : {
@@ -59,6 +62,7 @@ export const themeSettings: any = (mode: string) => {
             font: {
               primary: colors.font.primary,
               dark: colors.font.dark,
+              transparent: colors.font.transparent,
             },
           }),
     },

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { regSchema } from "../schemas/regSchema";
 import { useFetchRegisterMutation } from "@/app/services/userApi";
-import { RegisterDTO } from "@/shared/types/api-types/user-api-types";
+import { RegisterDTO } from "@/shared/types/user-api-types";
 
 const initRegData = {
   email: "",

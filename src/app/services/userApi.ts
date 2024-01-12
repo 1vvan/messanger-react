@@ -2,7 +2,7 @@ import {
   LoginDTO,
   LoginResponce,
   RegisterDTO,
-} from "@/shared/types/api-types/user-api-types";
+} from "@/shared/types/user-api-types";
 import { api } from "./api";
 import { IUser } from "@/shared/types/IUser";
 
@@ -22,7 +22,10 @@ export const userApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    getCurrentUser: builder.query<IUser, string>({
+      query: () => ({ url: '/user'})
+    }),
   }),
 });
 
-export const { useFetchLoginMutation, useFetchRegisterMutation } = userApi;
+export const { useFetchLoginMutation, useFetchRegisterMutation, useGetCurrentUserQuery } = userApi;

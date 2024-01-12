@@ -3,7 +3,12 @@ import React from "react";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import clsx from "clsx";
 import styles from "./user-row.module.scss";
-import { Avatar } from "@mui/material";
+import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
+import {
+  defaultUserImage,
+  handleImageError,
+} from "@/shared/helpers/imageError";
+import { CircularProgress } from "@mui/material";
 
 export type Status = "sended" | "readed";
 interface UserRowProps {
@@ -13,6 +18,9 @@ interface UserRowProps {
   avatar?: string;
   isTyping?: boolean;
   time: string;
+  id?: string | number;
+  isChatLoading: boolean;
+  handleSelectChat: (chatId) => void;
 }
 
 export const UserRow: React.FC<UserRowProps> = ({
@@ -22,15 +30,34 @@ export const UserRow: React.FC<UserRowProps> = ({
   avatar,
   isTyping = false,
   time,
+  id,
+  isChatLoading,
+  handleSelectChat,
 }) => {
+  if (isChatLoading) {
+    return (
+      <div
+        className={clsx(styles["user-row"], {
+          [styles["user-row--load"]]: isChatLoading,
+        })}
+      >
+        <div className={styles["user-row__loader"]}></div>
+        <CircularProgress size={24} />
+      </div>
+    );
+  }
   return (
-    <div className={styles["user-row"]}>
+    <div className={styles["user-row"]} onClick={() => handleSelectChat(id)}>
       <div className={styles["user-row__avatar"]}>
-        <Avatar
-          alt="User"
-          src={avatar ? avatar : ""}
-          sx={{ width: 32, height: 32 }}
-        />
+        {avatar ? (
+          <img
+            src={BASE_API_IMG_URL + avatar}
+            alt="User"
+            onError={handleImageError}
+          />
+        ) : (
+          <CircularProgress size={32} />
+        )}
         <div className={styles["user-row__avatar_status"]}></div>
       </div>
       <div className={styles["user-row__info"]}>

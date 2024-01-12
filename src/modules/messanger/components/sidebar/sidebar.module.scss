@@ -20,6 +20,7 @@
     &_icons {
         padding: 0px 5px;
         display: flex;
+        align-items: center;
         flex-direction: column;
         gap: 14px;
 
@@ -29,6 +30,16 @@
             width: 100%;
             background: var(--font-primary-color);
             opacity: 0.1;
+        }
+        &-avatar{
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            & img{
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 

@@ -6,11 +6,14 @@ import Switch from "react-switch";
 import { RowContainer } from "@/shared/components/row-container/row-container";
 import { useMode } from "../../../../shared/theme-context/theme-context";
 import styles from "./sidebar.module.scss";
-import { Avatar } from "@mui/material";
 import { themeColorsInit } from "@/shared/assets/scss/variables/variables";
 import { logout } from "@/modules/auth/login/use-login";
 import { ChatsList } from "../chats-list/ChatsList";
 import { clsx } from "clsx";
+import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
+import { ChatsResponse } from "@/shared/types/user-api-types";
+import { defaultUserImage, handleImageError } from "@/shared/helpers/imageError";
+import { CircularProgress } from "@mui/material";
 
 const menu = [
   { id: 1, icon: ICON_COLLECTION.planet },
@@ -20,7 +23,19 @@ const menu = [
   { id: 5, icon: ICON_COLLECTION.date },
 ];
 
-export const Sidebar = () => {
+interface SidebarProps {
+  userAvatar: string | undefined;
+  userChats: ChatsResponse | undefined;
+  isChatsLoading: boolean;
+  handleSelectChat: (chatId) => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({
+  userAvatar,
+  userChats,
+  isChatsLoading,
+  handleSelectChat,
+}) => {
   const [activeModal, setActiveModal] = useState(false);
   const { theme, toggleColorMode, mode } = useMode();
   const [selectedMenuItem, setSelectedMenuItem] = useState<number>(2);
@@ -38,7 +53,17 @@ export const Sidebar = () => {
               iconSize="32px"
               iconColor={"#27AE60"}
             />
-            <Avatar alt="User" sx={{ width: 32, height: 32 }} />
+            {userAvatar ? (
+              <div className={styles["sidebar__left_icons-avatar"]}>
+                <img
+                  src={BASE_API_IMG_URL + userAvatar}
+                  alt="User"
+                  onError={handleImageError}
+                />
+              </div>
+            ) : (
+              <CircularProgress size={32} />
+            )}
             <span className={styles["sidebar__left_icons-line"]}></span>
           </div>
           <div className={styles["sidebar__left_menu"]}>
@@ -80,7 +105,11 @@ export const Sidebar = () => {
             </button>
           </div>
         </div>
-        <ChatsList />
+        <ChatsList
+          chats={userChats}
+          handleSelectChat={handleSelectChat}
+          isChatsLoading={isChatsLoading}
+        />
       </section>
       <ModalWrapper
         active={activeModal}

@@ -2,10 +2,8 @@ import { ROUTES } from "@/shared/constants/routes/routes";
 import { useState } from "react";
 import { loginSchema } from "../schemas/loginSchema";
 import { useFetchLoginMutation } from "@/app/services/userApi";
-import {
-  LoginDTO,
-  LoginResponce,
-} from "@/shared/types/api-types/user-api-types";
+import { LoginDTO, LoginResponce } from "@/shared/types/user-api-types";
+import { toast } from "react-toastify";
 
 export const logout = () => {
   localStorage.removeItem("accessToken");
@@ -29,7 +27,7 @@ export const useLogin = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [login, { isLoading }] = useFetchLoginMutation();
+  const [login, { isLoading, error }] = useFetchLoginMutation();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -71,11 +69,16 @@ export const useLogin = () => {
     if (await handleLoginValidation()) {
       login(loginData).then((response) => {
         const responseData = response as { data: LoginResponce };
-        localStorage.setItem("accessToken", responseData.data.token);
-        localStorage.setItem("userId", responseData.data.user.id.toString());
-        // document.location.href = ROUTES.MESSANGER.path;
-        setLoginData(initLoginData);
-        setLoginErrors(initLoginData);
+        if (responseData.data && !error) {
+          localStorage.setItem("accessToken", responseData.data.token);
+          localStorage.setItem("userId", responseData.data.user.id.toString());
+          setLoginData(initLoginData);
+          setLoginErrors(initLoginData);
+          document.location.href = ROUTES.MESSANGER.path;
+        }
+        if (error) {
+          toast.error("Error");
+        }
       });
     }
   };
