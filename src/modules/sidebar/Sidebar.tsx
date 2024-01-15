@@ -117,7 +117,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           isChatsLoading={isChatsLoading}
           sortSelectOptions={models.sortSelectOptions}
           handleSortOptionChange={commands.handleSortOptionChange}
-          selectedSortOption={models.selectedSortOption}
+          handleSearchChange={commands.handleSearchChange}
+          searchText={models.searchText}
+          searchedChats={models.searchedChats}
+          isSearchLoading={models.searchLoading}
         />
       </section>
       <ModalWrapper

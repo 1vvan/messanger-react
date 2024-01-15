@@ -6,6 +6,7 @@ import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import Select from "react-select";
 import { IChat } from "@/shared/types/user-api-types";
 import { formatTime } from "@/shared/helpers/timeFormatter";
+import { CircularProgress } from "@mui/material";
 
 const selectStyles = {
   control: (base) => ({
@@ -63,7 +64,10 @@ interface ChatsListProps {
   handleSelectChat: (chatId) => void;
   sortSelectOptions: { value: string; label: string }[];
   handleSortOptionChange: (option) => void;
-  selectedSortOption: string;
+  searchText: string;
+  handleSearchChange: (e) => void;
+  searchedChats: IChat[];
+  isSearchLoading: boolean;
 }
 
 export const ChatsList: React.FC<ChatsListProps> = ({
@@ -72,7 +76,10 @@ export const ChatsList: React.FC<ChatsListProps> = ({
   handleSelectChat,
   sortSelectOptions,
   handleSortOptionChange,
-  selectedSortOption,
+  searchText,
+  handleSearchChange,
+  searchedChats,
+  isSearchLoading,
 }) => {
   return (
     <div className={styles["sidebar__chats"]}>
@@ -83,7 +90,17 @@ export const ChatsList: React.FC<ChatsListProps> = ({
           className={styles["sidebar__chats_search-icon"]}
           iconColor="#676767"
         />
-        <input type="text" placeholder="Search" />
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={handleSearchChange}
+          value={searchText}
+        />
+        {isSearchLoading && (
+          <div className={styles["sidebar__chats_search-loader"]}>
+            <CircularProgress size={16} />
+          </div>
+        )}
       </div>
       <div className={styles["sidebar__chats_sort"]}>
         <span>Sort by</span>
@@ -95,20 +112,33 @@ export const ChatsList: React.FC<ChatsListProps> = ({
         />
       </div>
       <div className={styles["sidebar__chats_list"]}>
-        {chats &&
-          chats.map((chat) => (
-            <UserRow
-              key={chat.last_message.chat_id}
-              id={chat.last_message.chat_id}
-              userName={chat.name}
-              message={chat.last_message.message}
-              status={"readed"}
-              time={formatTime(chat.last_message.updated_at)}
-              avatar={chat.avatar}
-              isChatLoading={isChatsLoading}
-              handleSelectChat={handleSelectChat}
-            />
-          ))}
+        {searchedChats
+          ? searchedChats.map((chat) => (
+              <UserRow
+                key={chat.last_message.chat_id}
+                id={chat.last_message.chat_id}
+                userName={chat.name}
+                message={chat.last_message.message}
+                status={"readed"}
+                time={formatTime(chat.last_message.updated_at)}
+                avatar={chat.avatar}
+                isChatLoading={isChatsLoading}
+                handleSelectChat={handleSelectChat}
+              />
+            ))
+          : chats.map((chat) => (
+              <UserRow
+                key={chat.last_message.chat_id}
+                id={chat.last_message.chat_id}
+                userName={chat.name}
+                message={chat.last_message.message}
+                status={"readed"}
+                time={formatTime(chat.last_message.updated_at)}
+                avatar={chat.avatar}
+                isChatLoading={isChatsLoading}
+                handleSelectChat={handleSelectChat}
+              />
+            ))}
       </div>
     </div>
   );

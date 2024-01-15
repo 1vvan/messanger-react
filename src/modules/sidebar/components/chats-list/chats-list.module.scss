@@ -37,6 +37,12 @@
             left: 12px;
             transform: translateY(-50%);
         }
+        &-loader{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-37%);
+            right: 15px;
+        }
     }
 
     &_sort{

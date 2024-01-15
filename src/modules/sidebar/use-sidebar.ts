@@ -21,6 +21,9 @@ export const useSidebar = ({ user, userChats }) => {
   });
   const [updateUser, { data }] = useUpdateUserMutation();
   const [selectedSortOption, setSelectedSortOption] = useState("time");
+  const [searchText, setSearchText] = useState("");
+  const [debouncedSearchText, setDebouncedSearchText] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
     if (user?.nickname) {
@@ -101,6 +104,29 @@ export const useSidebar = ({ user, userChats }) => {
     return copyChatsArray;
   }, [chatsArray, selectedSortOption]);
 
+  const handleSearchChange = (e) => {
+    const text = e.target.value;
+    setSearchText(text);
+  };
+
+  useEffect(() => {
+    setSearchLoading(true);
+    const timerId = setTimeout(() => {
+      setDebouncedSearchText(searchText);
+      setSearchLoading(false);
+    }, 1500);
+    return () => clearTimeout(timerId);
+  }, [searchText]);
+
+  const searchedChats = useMemo(() => {
+    return (
+      chatsArray &&
+      chatsArray.filter((chat) =>
+        chat.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
+      )
+    );
+  }, [chatsArray, debouncedSearchText]);
+
   return {
     models: {
       activeModal,
@@ -111,6 +137,9 @@ export const useSidebar = ({ user, userChats }) => {
       sortSelectOptions,
       selectedSortOption,
       sortedChatsArray,
+      searchText,
+      searchedChats,
+      searchLoading,
     },
     commands: {
       setActiveModal,
@@ -120,6 +149,7 @@ export const useSidebar = ({ user, userChats }) => {
       handleConfirmUpdateAccount,
       handleCancelUpdate,
       handleSortOptionChange,
+      handleSearchChange,
     },
   };
 };
