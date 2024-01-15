@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import { Icon } from "@/shared/components/icon/icon";
 import { ModalWrapper } from "../../shared/components/modal/modal";
@@ -11,14 +11,11 @@ import { logout } from "@/modules/auth/login/use-login";
 import { ChatsList } from "./components/chats-list/ChatsList";
 import { clsx } from "clsx";
 import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
-import { ChatsResponse, IAccountSettings } from "@/shared/types/user-api-types";
+import { ChatsResponse } from "@/shared/types/user-api-types";
 import { handleImageError } from "@/shared/helpers/imageError";
 import { Button, CircularProgress } from "@mui/material";
 import { IUser } from "@/shared/types/IUser";
 import { AccountSettingsModalForm } from "./components/account-settings-modal-form/account-settings-modal-form";
-import { accountSettingsSchema } from "@/shared/schemas/accountSettingsSchema";
-import { useUpdateUserMutation } from "@/app/services/userApi";
-import { toast } from "react-toastify";
 import { useSidebar } from "./use-sidebar";
 
 const menu = [
@@ -44,6 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { models, commands } = useSidebar({
     user,
+    userChats,
   });
   const { theme, toggleColorMode, mode } = useMode();
   useEffect(() => {
@@ -114,9 +112,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
         <ChatsList
-          chats={userChats}
+          chats={models.sortedChatsArray}
           handleSelectChat={handleSelectChat}
           isChatsLoading={isChatsLoading}
+          sortSelectOptions={models.sortSelectOptions}
+          handleSortOptionChange={commands.handleSortOptionChange}
+          selectedSortOption={models.selectedSortOption}
         />
       </section>
       <ModalWrapper

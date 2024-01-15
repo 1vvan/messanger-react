@@ -7,11 +7,6 @@ import Select from "react-select";
 import { IChat } from "@/shared/types/user-api-types";
 import { formatTime } from "@/shared/helpers/timeFormatter";
 
-const sortOptions = [
-  { value: "time", label: "Newest" },
-  { value: "name", label: "Name" },
-];
-
 const selectStyles = {
   control: (base) => ({
     ...base,
@@ -63,14 +58,22 @@ const selectStyles = {
 };
 
 interface ChatsListProps {
-  chats: Record<string, IChat> | undefined;
+  chats: IChat[];
   isChatsLoading: boolean;
   handleSelectChat: (chatId) => void;
+  sortSelectOptions: { value: string; label: string }[];
+  handleSortOptionChange: (option) => void;
+  selectedSortOption: string;
 }
 
-export const ChatsList: React.FC<ChatsListProps> = ({ chats, isChatsLoading, handleSelectChat }) => {
-  const chatsArray: IChat[] = chats ? Object.values(chats) : [];
-
+export const ChatsList: React.FC<ChatsListProps> = ({
+  chats,
+  isChatsLoading,
+  handleSelectChat,
+  sortSelectOptions,
+  handleSortOptionChange,
+  selectedSortOption,
+}) => {
   return (
     <div className={styles["sidebar__chats"]}>
       <h1>Messages</h1>
@@ -85,14 +88,15 @@ export const ChatsList: React.FC<ChatsListProps> = ({ chats, isChatsLoading, han
       <div className={styles["sidebar__chats_sort"]}>
         <span>Sort by</span>
         <Select
-          options={sortOptions}
-          defaultValue={sortOptions[0]}
+          options={sortSelectOptions}
+          defaultValue={sortSelectOptions[0]}
           styles={selectStyles}
+          onChange={(selectedOption) => handleSortOptionChange(selectedOption)}
         />
       </div>
       <div className={styles["sidebar__chats_list"]}>
-        {chatsArray &&
-          chatsArray.map((chat) => (
+        {chats &&
+          chats.map((chat) => (
             <UserRow
               key={chat.last_message.chat_id}
               id={chat.last_message.chat_id}

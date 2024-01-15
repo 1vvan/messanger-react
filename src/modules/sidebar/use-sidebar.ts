@@ -1,10 +1,15 @@
 import { useUpdateUserMutation } from "@/app/services/userApi";
 import { accountSettingsSchema } from "@/shared/schemas/accountSettingsSchema";
-import { IAccountSettings } from "@/shared/types/user-api-types";
-import { useEffect, useState } from "react";
+import { IAccountSettings, IChat } from "@/shared/types/user-api-types";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-export const useSidebar = ({ user }) => {
+const sortSelectOptions = [
+  { value: "time", label: "Newest" },
+  { value: "name", label: "Name" },
+];
+
+export const useSidebar = ({ user, userChats }) => {
   const [activeModal, setActiveModal] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState<number>(2);
   const [isUpdateUser, setIsUpdateUser] = useState(false);
@@ -15,6 +20,7 @@ export const useSidebar = ({ user }) => {
     nickname: "",
   });
   const [updateUser, { data }] = useUpdateUserMutation();
+  const [selectedSortOption, setSelectedSortOption] = useState("time");
 
   useEffect(() => {
     if (user?.nickname) {
@@ -72,6 +78,29 @@ export const useSidebar = ({ user }) => {
     setIsUpdateUser(false);
   };
 
+  const handleSortOptionChange = (selectedOption) => {
+    setSelectedSortOption(selectedOption.value);
+  };
+
+  const chatsArray: IChat[] = useMemo(
+    () => (userChats ? Object.values(userChats) : []),
+    [userChats]
+  );
+
+  const sortedChatsArray = useMemo(() => {
+    const copyChatsArray = [...chatsArray];
+    if (selectedSortOption === "name") {
+      copyChatsArray.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (selectedSortOption === "time") {
+      copyChatsArray.sort(
+        (a, b) =>
+          new Date(b.last_message.updated_at).getTime() -
+          new Date(a.last_message.updated_at).getTime()
+      );
+    }
+    return copyChatsArray;
+  }, [chatsArray, selectedSortOption]);
+
   return {
     models: {
       activeModal,
@@ -79,6 +108,9 @@ export const useSidebar = ({ user }) => {
       isUpdateUser,
       settingsFormData,
       formDataErorrs,
+      sortSelectOptions,
+      selectedSortOption,
+      sortedChatsArray,
     },
     commands: {
       setActiveModal,
@@ -87,6 +119,7 @@ export const useSidebar = ({ user }) => {
       handleChangeFormData,
       handleConfirmUpdateAccount,
       handleCancelUpdate,
+      handleSortOptionChange,
     },
   };
 };
