@@ -112,7 +112,7 @@ export const ChatsList: React.FC<ChatsListProps> = ({
         />
       </div>
       <div className={styles["sidebar__chats_list"]}>
-        {searchedChats
+        {searchedChats && searchText
           ? searchedChats.map((chat) => (
               <UserRow
                 key={chat.last_message.chat_id}
