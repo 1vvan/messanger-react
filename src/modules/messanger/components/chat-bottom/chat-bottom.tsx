@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./chat-bottom.module.scss";
 import { Icon } from "@/shared/components/icon/icon";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
+import { clsx } from 'clsx';
 
 interface ChatBottomProps {
   message: string;
@@ -33,7 +34,9 @@ export const ChatBottom: React.FC<ChatBottomProps> = ({
         />
       </div>
       <button
-        className={styles["chat-window__bottom_button"]}
+        className={clsx(styles["chat-window__bottom_button"], {
+          [styles["chat-window__bottom_button--active"]]: message.length > 0
+        })}
         onClick={handleSendMessage}
       >
         Send message

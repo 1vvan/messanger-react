@@ -21,7 +21,19 @@ export const chatsApi = api.injectEndpoints({
         body: { message: data.message },
       }),
     }),
+    muteChat: builder.mutation<string, number>({
+      query: (chatId: number) => ({
+        url: `/chats/${chatId}/mute`,
+        method: "POST",
+      }),
+    }),
+    unmuteChat: builder.mutation<string, number>({
+      query: (chatId: number) => ({
+        url: `/chats/${chatId}/unmute`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const {useGetAllUserChatsQuery, useGetChatQuery, useSendMessageMutation} = chatsApi
+export const {useGetAllUserChatsQuery, useGetChatQuery, useSendMessageMutation, useMuteChatMutation, useUnmuteChatMutation} = chatsApi

@@ -38,6 +38,19 @@
         text-wrap: nowrap;
         font-weight: 500;
         color: #27AE60;
+        opacity: 0.5;
         font-family: "SF Pro Display", sans-serif;
+        transition: all .3s ease 0s;
+        pointer-events: none;
+        cursor: default;
+        &:hover{
+            color: #1b7a58;
+        }
+        &--active{
+            opacity: 1;
+            transition: all .3s ease 0s;
+            pointer-events: all;
+            cursor: pointer;
+        }
     }
 }

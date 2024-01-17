@@ -9,19 +9,23 @@ import { handleImageError } from "@/shared/helpers/imageError";
 
 interface ChatTopBarProps {
   chat: ISingleChat | undefined;
+  setIsModalActive: (state: boolean) => void;
 }
 
-export const ChatTopBar: React.FC<ChatTopBarProps> = ({ chat }) => {
+export const ChatTopBar: React.FC<ChatTopBarProps> = ({
+  chat,
+  setIsModalActive,
+}) => {
   return (
     <div className={styles["chat-window__top-bar"]}>
       <div className={styles["chat-window__top-bar_user"]}>
         <div className={styles["chat-window__top-bar_user-avatar"]}>
           {chat?.avatar ? (
-              <img
-                src={BASE_API_IMG_URL + chat?.avatar}
-                alt="User"
-                onError={handleImageError}
-              />
+            <img
+              src={BASE_API_IMG_URL + chat?.avatar}
+              alt="User"
+              onError={handleImageError}
+            />
           ) : (
             <CircularProgress size={24} />
           )}
@@ -32,17 +36,20 @@ export const ChatTopBar: React.FC<ChatTopBarProps> = ({ chat }) => {
         </div>
       </div>
       <div className={styles["chat-window__top-bar_buttons"]}>
-        <div className={styles["chat-window__top-bar_buttons-item"]}>
+        <button className={styles["chat-window__top-bar_buttons-item"]}>
           <Icon
             icon={ICON_COLLECTION.video}
             iconSize="24px"
             iconColor="#27AE60"
             hasStroke={false}
           />
-        </div>
-        <div className={styles["chat-window__top-bar_buttons-item"]}>
+        </button>
+        <button
+          className={styles["chat-window__top-bar_buttons-item"]}
+          onClick={() => setIsModalActive(true)}
+        >
           <Icon icon={ICON_COLLECTION.info} iconSize="24px" hasStroke={false} />
-        </div>
+        </button>
       </div>
     </div>
   );
