@@ -21,6 +21,7 @@ interface UserRowProps {
   id?: string | number;
   isChatLoading: boolean;
   handleSelectChat: (chatId) => void;
+  isCurrentChatSelected: boolean;
 }
 
 export const UserRow: React.FC<UserRowProps> = ({
@@ -33,6 +34,7 @@ export const UserRow: React.FC<UserRowProps> = ({
   id,
   isChatLoading,
   handleSelectChat,
+  isCurrentChatSelected,
 }) => {
   if (isChatLoading) {
     return (
@@ -47,7 +49,12 @@ export const UserRow: React.FC<UserRowProps> = ({
     );
   }
   return (
-    <div className={styles["user-row"]} onClick={() => handleSelectChat(id)}>
+    <div
+      className={clsx(styles["user-row"], {
+        [styles["user-row--selected"]]: isCurrentChatSelected,
+      })}
+      onClick={() => handleSelectChat(id)}
+    >
       <div className={styles["user-row__avatar"]}>
         {avatar ? (
           <img

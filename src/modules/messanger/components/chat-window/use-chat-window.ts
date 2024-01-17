@@ -2,6 +2,7 @@ import { chatsApi } from "@/app/services/chatsApi";
 import { ISingleChat } from "@/shared/types/user-api-types";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import sendSound from '@/shared/assets/audio/send-message.mp3';
 
 export const useChatWindow = ({ chatId }) => {
   const {
@@ -12,10 +13,13 @@ export const useChatWindow = ({ chatId }) => {
   const [sendMessage] = chatsApi.useSendMessageMutation();
   const [muteChat] = chatsApi.useMuteChatMutation();
   const [unmuteChat] = chatsApi.useUnmuteChatMutation();
+  const { refetch: refetchUserChats } =
+    chatsApi.useGetAllUserChatsQuery("");
   const [message, setMessage] = useState("");
   const [reversedChat, setReversedChat] = useState<ISingleChat>();
   const [isChatModalActive, setIsChatModalActive] = useState(false);
   const [isChatMuted, setIsChatMuted] = useState(chat?.muted === 1);
+  const sendMessageSound = new Audio(sendSound);
 
   const handleChangeMessage = (message) => {
     setMessage(message);
@@ -24,7 +28,9 @@ export const useChatWindow = ({ chatId }) => {
   const handleSendMessage = async () => {
     if (message.length > 0) {
       await sendMessage({ chatId, message: message });
+      sendMessageSound.play();
       refetchChat();
+      refetchUserChats();
       setMessage("");
     }
   };
@@ -52,7 +58,6 @@ export const useChatWindow = ({ chatId }) => {
         toast.error("Failed to mute/unmute chat");
       }
     };
-  
     handleMuteChat();
   };
 

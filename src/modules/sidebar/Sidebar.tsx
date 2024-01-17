@@ -31,6 +31,7 @@ interface SidebarProps {
   userChats: ChatsResponse | undefined;
   isChatsLoading: boolean;
   handleSelectChat: (chatId) => void;
+  selectedChatId: number | undefined;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -38,6 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   userChats,
   isChatsLoading,
   handleSelectChat,
+  selectedChatId,
 }) => {
   const { models, commands } = useSidebar({
     user,
@@ -114,6 +116,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <ChatsList
           chats={models.sortedChatsArray}
           handleSelectChat={handleSelectChat}
+          selectedChatId={selectedChatId}
           isChatsLoading={isChatsLoading}
           sortSelectOptions={models.sortSelectOptions}
           handleSortOptionChange={commands.handleSortOptionChange}

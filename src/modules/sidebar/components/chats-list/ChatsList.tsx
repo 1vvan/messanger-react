@@ -62,6 +62,7 @@ interface ChatsListProps {
   chats: IChat[];
   isChatsLoading: boolean;
   handleSelectChat: (chatId) => void;
+  selectedChatId: number | undefined;
   sortSelectOptions: { value: string; label: string }[];
   handleSortOptionChange: (option) => void;
   searchText: string;
@@ -74,6 +75,7 @@ export const ChatsList: React.FC<ChatsListProps> = ({
   chats,
   isChatsLoading,
   handleSelectChat,
+  selectedChatId,
   sortSelectOptions,
   handleSortOptionChange,
   searchText,
@@ -123,6 +125,9 @@ export const ChatsList: React.FC<ChatsListProps> = ({
                 time={formatTime(chat.last_message.updated_at)}
                 avatar={chat.avatar}
                 isChatLoading={isChatsLoading}
+                isCurrentChatSelected={
+                  selectedChatId === chat.last_message.chat_id
+                }
                 handleSelectChat={handleSelectChat}
               />
             ))
@@ -137,6 +142,9 @@ export const ChatsList: React.FC<ChatsListProps> = ({
                 avatar={chat.avatar}
                 isChatLoading={isChatsLoading}
                 handleSelectChat={handleSelectChat}
+                isCurrentChatSelected={
+                  selectedChatId === chat.last_message.chat_id
+                }
               />
             ))}
       </div>

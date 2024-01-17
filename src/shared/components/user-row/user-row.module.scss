@@ -11,6 +11,9 @@
         background: var(--bg-dark-color);
         transition: all .3s ease 0s;
     }
+    &--selected{
+        background: var(--bg-dark-color);
+    }
     &--load{
         background: var(--bg-dark-color);
         margin: 5px 0px;

@@ -14,11 +14,12 @@ export const MessangerPage = () => {
         user={models.user}
         userChats={models.userChats && models.userChats}
         isChatsLoading={models.isChatsLoading}
+        selectedChatId={models.selectedChatId}
         handleSelectChat={commands.handleSelectChat}
       />
       <section className={styles["messanger"]}>
-        {!!models.selectedChat ? (
-          <ChatWindow chatId={models.selectedChat.last_message.chat_id} />
+        {!!models.selectedChatId ? (
+          <ChatWindow chatId={models.selectedChatId} />
         ) : (
           <h3 className={styles["messanger__empty"]}>Choose Chat</h3>
         )}

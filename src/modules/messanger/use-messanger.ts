@@ -17,7 +17,7 @@ export const useMessanger = () => {
       models: {
         user,
         userChats,
-        selectedChat,
+        selectedChatId: selectedChat?.last_message.chat_id,
         isChatsLoading,
       },
       commands: {
