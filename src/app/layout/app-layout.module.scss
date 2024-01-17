@@ -1,10 +1,4 @@
 .messanger-wrapper{
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    width: 70vw;
-    height: 100%;
-    overflow-y: auto;
-    background: var(--bg-darked-color);
+    width: 100vw;
+    height: 100vh;
 }
