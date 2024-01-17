@@ -27,7 +27,7 @@ export interface ISingleChat {
   hasMore: boolean;
 }
 
-interface IMessage {
+export interface IMessage {
   id: number;
   message: string;
   user_id: number;
@@ -39,7 +39,6 @@ interface IMessage {
   attachment_type: null | string;
   fromYou: boolean;
 }
-
 
 export interface IChat {
   avatar: string;
@@ -61,4 +60,18 @@ export interface IAccountSettings {
 export interface RequestUpdateUserData {
   userId: number;
   data: IAccountSettings;
+}
+
+export interface RequestSendChatMessage {
+  chatId: number;
+  message: string
+}
+
+export interface ResponceSendChatMessage {
+  chat_id: number;
+  message: string;
+  user_id: number;
+  updated_at: string;
+  created_at: string;
+  id: number;
 }

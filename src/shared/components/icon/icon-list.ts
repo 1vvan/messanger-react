@@ -11,6 +11,7 @@ import { ReactComponent as Music } from "../../assets/icons/collection/music.svg
 import { ReactComponent as Video } from "../../assets/icons/collection/video.svg";
 import { ReactComponent as Date } from "../../assets/icons/collection/date.svg";
 import { ReactComponent as Info } from "../../assets/icons/collection/info.svg";
+import { ReactComponent as Clip } from "../../assets/icons/collection/clip.svg";
 
 export const ICON_COLLECTION = {
   settings: Settings,
@@ -26,6 +27,7 @@ export const ICON_COLLECTION = {
   video: Video,
   date: Date,
   info: Info,
+  clip: Clip,
 };
 
 type Keys = keyof typeof ICON_COLLECTION;
