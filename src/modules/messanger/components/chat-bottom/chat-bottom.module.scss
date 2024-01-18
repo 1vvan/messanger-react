@@ -78,5 +78,10 @@
             pointer-events: all;
             cursor: pointer;
         }
+        @media (max-width: 767px){
+            max-width: 30px;
+            overflow: hidden;
+            text-wrap: nowrap;
+        }
     }
 }

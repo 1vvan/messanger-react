@@ -129,6 +129,8 @@ export const ChatsList: React.FC<ChatsListProps> = ({
                   selectedChatId === chat.last_message.chat_id
                 }
                 handleSelectChat={handleSelectChat}
+                unreadCount={chat.unread_count}
+                isMuted={chat.muted === 1}
               />
             ))
           : chats.map((chat) => (
@@ -145,6 +147,8 @@ export const ChatsList: React.FC<ChatsListProps> = ({
                 isCurrentChatSelected={
                   selectedChatId === chat.last_message.chat_id
                 }
+                unreadCount={chat.unread_count}
+                isMuted={chat.muted === 1}
               />
             ))}
       </div>

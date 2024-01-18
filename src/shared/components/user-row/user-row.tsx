@@ -4,11 +4,9 @@ import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import clsx from "clsx";
 import styles from "./user-row.module.scss";
 import { BASE_API_IMG_URL } from "@/shared/constants/api-url";
-import {
-  handleImageError,
-} from "@/shared/helpers/imageError";
+import { handleImageError } from "@/shared/helpers/imageError";
 import { CircularProgress } from "@mui/material";
-import { truncateText } from '../../helpers/trunscateText';
+import { truncateText } from "../../helpers/trunscateText";
 
 export type Status = "sended" | "readed";
 interface UserRowProps {
@@ -22,6 +20,8 @@ interface UserRowProps {
   isChatLoading: boolean;
   handleSelectChat: (chatId) => void;
   isCurrentChatSelected: boolean;
+  unreadCount: number;
+  isMuted: boolean;
 }
 
 export const UserRow: React.FC<UserRowProps> = ({
@@ -35,6 +35,8 @@ export const UserRow: React.FC<UserRowProps> = ({
   isChatLoading,
   handleSelectChat,
   isCurrentChatSelected,
+  unreadCount,
+  isMuted,
 }) => {
   if (isChatLoading) {
     return (
@@ -80,18 +82,23 @@ export const UserRow: React.FC<UserRowProps> = ({
           >
             {isTyping ? "... is typing" : truncateText(message, 30)}
           </h4>
-          <span>
-            <Icon
-              icon={
-                status === "readed"
-                  ? ICON_COLLECTION.readIcon
-                  : ICON_COLLECTION.sendIcon
-              }
-              hasStroke={false}
-              iconSize="12px"
-              iconColor={"#27AE60"}
-            />
-          </span>
+          <div className={styles["user-row__info_row-icons"]}>
+            {unreadCount ? (
+              <p>{unreadCount}</p>
+            ) : (
+              <Icon
+                icon={
+                  status === "readed"
+                    ? ICON_COLLECTION.readIcon
+                    : ICON_COLLECTION.sendIcon
+                }
+                hasStroke={false}
+                iconSize="18px"
+                iconColor={"#27AE60"}
+              />
+            )}
+            {isMuted && <Icon icon={ICON_COLLECTION.mute} iconSize="18px" />}
+          </div>
         </div>
       </div>
     </div>

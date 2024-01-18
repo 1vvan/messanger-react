@@ -24,6 +24,12 @@ export const useChatWindow = ({ chatId }) => {
 
   useEffect(() => {
     markAsRead(chatId);
+    const intervalId = setInterval(() => {
+      refetchChat();
+      refetchUserChats();
+    }, 10000);
+
+    return () => clearInterval(intervalId);
     // eslint-disable-next-line
   }, [chatId]);
 
@@ -59,6 +65,8 @@ export const useChatWindow = ({ chatId }) => {
           await unmuteChat(chatId);
         }
         toast.success(!isChatMuted ? "Chat muted" : "Chat unmuted");
+        refetchChat();
+        refetchUserChats();
       } catch (error) {
         console.error("Error muting/unmuting chat:", error);
         toast.error("Failed to mute/unmute chat");

@@ -61,6 +61,12 @@
                 min-width: 24px;
             }
         }
+        @media (max-width: 767px){
+            gap: 5px;
+            &-item{
+                padding: 0;
+            }
+        }
     }
 }
 

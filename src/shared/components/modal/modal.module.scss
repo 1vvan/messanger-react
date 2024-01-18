@@ -7,6 +7,9 @@
     background: var(--bg-primary-color);
     padding: 24px;
     width: 33%;
+    @media (max-width: 767px){
+        width: 80vw;
+    }
 }
 
 .modal__header{

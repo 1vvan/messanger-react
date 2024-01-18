@@ -13,6 +13,7 @@ import { ReactComponent as Date } from "../../assets/icons/collection/date.svg";
 import { ReactComponent as Info } from "../../assets/icons/collection/info.svg";
 import { ReactComponent as Clip } from "../../assets/icons/collection/clip.svg";
 import { ReactComponent as ArrowLeft } from "../../assets/icons/collection/arrow-left.svg";
+import { ReactComponent as Mute } from "../../assets/icons/collection/mute.svg";
 
 export const ICON_COLLECTION = {
   settings: Settings,
@@ -30,6 +31,7 @@ export const ICON_COLLECTION = {
   info: Info,
   clip: Clip,
   arrowLeft: ArrowLeft,
+  mute: Mute,
 };
 
 type Keys = keyof typeof ICON_COLLECTION;
