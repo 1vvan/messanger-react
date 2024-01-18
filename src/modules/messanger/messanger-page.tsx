@@ -15,11 +15,15 @@ export const MessangerPage = () => {
         userChats={models.userChats && models.userChats}
         isChatsLoading={models.isChatsLoading}
         selectedChatId={models.selectedChatId}
+        isSidebarOpen={models.isSidebarOpen}
         handleSelectChat={commands.handleSelectChat}
       />
       <section className={styles["messanger"]}>
         {!!models.selectedChatId ? (
-          <ChatWindow chatId={models.selectedChatId} />
+          <ChatWindow
+            chatId={models.selectedChatId}
+            handleOpenSidebar={commands.handleOpenSidebar}
+          />
         ) : (
           <h3 className={styles["messanger__empty"]}>Choose Chat</h3>
         )}

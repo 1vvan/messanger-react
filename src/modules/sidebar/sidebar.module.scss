@@ -7,6 +7,9 @@
     height: 100%;
     display: flex;
     justify-items: center;
+    @media (max-width: 997px){
+        width: 40vw;
+    }
 }
 
 .sidebar__left {
@@ -99,4 +102,16 @@
     padding-top: 15px;
     display: flex;
     gap: 15px;
+}
+
+@media (max-width: 767px){
+    .sidebar{
+        transform: translateX(-100%);
+        width: 100vw;
+        transition: all .7s ease 0s;
+        &--open{
+            transform: translateX(0);
+            transition: all .7s ease 0s;
+        }
+    }
 }

@@ -4,24 +4,34 @@ import { IChat } from "@/shared/types/user-api-types";
 import { useState } from "react";
 
 export const useMessanger = () => {
-    const { data: user } = userApi.useGetCurrentUserQuery('');
-    const { data: userChats, isLoading: isChatsLoading } = chatsApi.useGetAllUserChatsQuery('');
+  const { data: user } = userApi.useGetCurrentUserQuery("");
+  const { data: userChats, isLoading: isChatsLoading } =
     chatsApi.useGetAllUserChatsQuery("");
-    const [selectedChat, setSelectedChat] = useState<IChat>();
-    const handleSelectChat = (chatId) => {
-        const chatToFind = userChats && userChats[chatId];
-        setSelectedChat(chatToFind);
-    }
+  chatsApi.useGetAllUserChatsQuery("");
+  const [selectedChat, setSelectedChat] = useState<IChat>();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-    return {
-      models: {
-        user,
-        userChats,
-        selectedChatId: selectedChat?.last_message.chat_id,
-        isChatsLoading,
-      },
-      commands: {
-        handleSelectChat,
-      },
-    };
-}
+  const handleSelectChat = (chatId) => {
+    const chatToFind = userChats && userChats[chatId];
+    setSelectedChat(chatToFind);
+    setIsSidebarOpen(false)
+  };
+
+  const handleOpenSidebar = () => {
+    setIsSidebarOpen(true);
+  }
+
+  return {
+    models: {
+      user,
+      userChats,
+      selectedChatId: selectedChat?.last_message.chat_id,
+      isChatsLoading,
+      isSidebarOpen,
+    },
+    commands: {
+      handleSelectChat,
+      handleOpenSidebar,
+    },
+  };
+};

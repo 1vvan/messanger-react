@@ -10,15 +10,28 @@ import { handleImageError } from "@/shared/helpers/imageError";
 interface ChatTopBarProps {
   chat: ISingleChat | undefined;
   setIsModalActive: (state: boolean) => void;
+  handleOpenSidebar: () => void;
 }
 
 export const ChatTopBar: React.FC<ChatTopBarProps> = ({
   chat,
   setIsModalActive,
+  handleOpenSidebar,
 }) => {
   return (
     <div className={styles["chat-window__top-bar"]}>
       <div className={styles["chat-window__top-bar_user"]}>
+        <button
+          className={styles["chat-window__top-bar_user-back"]}
+          onClick={handleOpenSidebar}
+        >
+          <Icon
+            icon={ICON_COLLECTION.arrowLeft}
+            iconSize="30px"
+            iconColor="#a1a1a1"
+            hasStroke={false}
+          />
+        </button>
         <div className={styles["chat-window__top-bar_user-avatar"]}>
           {chat?.avatar ? (
             <img

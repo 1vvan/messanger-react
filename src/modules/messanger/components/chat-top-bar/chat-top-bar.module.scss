@@ -15,6 +15,11 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        &-back{
+            height: 30px;
+            width: 30px;
+            display: none;
+        }
         &-avatar{
             width: 42px;
             height: 42px;
@@ -56,5 +61,11 @@
                 min-width: 24px;
             }
         }
+    }
+}
+
+@media (max-width: 767px){
+    .chat-window__top-bar_user-back{
+        display: block;
     }
 }

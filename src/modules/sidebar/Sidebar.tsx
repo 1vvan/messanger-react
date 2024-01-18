@@ -32,6 +32,7 @@ interface SidebarProps {
   isChatsLoading: boolean;
   handleSelectChat: (chatId) => void;
   selectedChatId: number | undefined;
+  isSidebarOpen: boolean;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -40,6 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isChatsLoading,
   handleSelectChat,
   selectedChatId,
+  isSidebarOpen,
 }) => {
   const { models, commands } = useSidebar({
     user,
@@ -51,7 +53,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   }, [theme]);
   return (
     <>
-      <section className={styles["sidebar"]}>
+      <section
+        className={clsx(styles["sidebar"], {
+          [styles["sidebar--open"]]: isSidebarOpen,
+        })}
+      >
         <div className={styles["sidebar__left"]}>
           <div className={styles["sidebar__left_icons"]}>
             <Icon

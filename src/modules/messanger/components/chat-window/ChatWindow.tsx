@@ -8,22 +8,24 @@ import { ModalWrapper } from "@/shared/components/modal/modal";
 import { RowContainer } from "@/shared/components/row-container/row-container";
 import Switch from "react-switch";
 
-interface ChatWindowProps{
-    chatId: number
+interface ChatWindowProps {
+  chatId: number;
+  handleOpenSidebar: () => void;
 }
 
-export const ChatWindow: React.FC<ChatWindowProps> = ({ chatId }) => {
+export const ChatWindow: React.FC<ChatWindowProps> = ({
+  chatId,
+  handleOpenSidebar,
+}) => {
   const { models, commands } = useChatWindow({ chatId: chatId });
   return (
     <div className={styles["chat-window"]}>
       <ChatTopBar
         chat={models.chat}
         setIsModalActive={commands.setIsChatModalActive}
+        handleOpenSidebar={handleOpenSidebar}
       />
-      <ChatMain
-        chat={models.chat}
-        chatIsLoading={models.chatIsLoading}
-      />
+      <ChatMain chat={models.chat} chatIsLoading={models.chatIsLoading} />
       <ChatBottom
         message={models.message}
         handleChangeMessage={commands.handleChangeMessage}
