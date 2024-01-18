@@ -50,6 +50,12 @@ export const chatsApi = api.injectEndpoints({
         body: { message: data.message },
       }),
     }),
+    markChatAsRead: builder.mutation<string, number>({
+      query: (chatId: number) => ({
+        url: `/chats/${chatId}/mark-as-read`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -60,5 +66,6 @@ export const {
   useMuteChatMutation,
   useUnmuteChatMutation,
   useDeleteMessageMutation,
-  useEditMessageMutation
+  useEditMessageMutation,
+  useMarkChatAsReadMutation
 } = chatsApi;
