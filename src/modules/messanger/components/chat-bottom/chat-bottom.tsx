@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./chat-bottom.module.scss";
 import { Icon } from "@/shared/components/icon/icon";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
@@ -15,6 +15,17 @@ export const ChatBottom: React.FC<ChatBottomProps> = ({
   handleChangeMessage,
   handleSendMessage,
 }) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "36px";
+      textareaRef.current.style.height = `${Math.min(
+        textareaRef.current.scrollHeight,
+        (30 * window.innerHeight) / 100
+      )}px`;
+    }
+  }, [message]);
   return (
     <div className={styles["chat-window__bottom"]}>
       <div className={styles["chat-window__bottom_clip"]}>
@@ -26,8 +37,8 @@ export const ChatBottom: React.FC<ChatBottomProps> = ({
         />
       </div>
       <div className={styles["chat-window__bottom_message"]}>
-        <input
-          type="text"
+        <textarea
+          ref={textareaRef}
           placeholder="Type your message here.."
           value={message}
           onChange={(e) => handleChangeMessage(e.target.value)}
@@ -35,7 +46,7 @@ export const ChatBottom: React.FC<ChatBottomProps> = ({
       </div>
       <button
         className={clsx(styles["chat-window__bottom_button"], {
-          [styles["chat-window__bottom_button--active"]]: message.length > 0
+          [styles["chat-window__bottom_button--active"]]: message.length > 0,
         })}
         onClick={handleSendMessage}
       >
