@@ -23,7 +23,8 @@ export const useChatWindow = ({ chatId }) => {
   const sendMessageSound = new Audio(sendSound);
 
   useEffect(() => {
-    markAsRead(chatId);
+    markChatAsRead();
+
     const intervalId = setInterval(() => {
       refetchChat();
       refetchUserChats();
@@ -36,6 +37,12 @@ export const useChatWindow = ({ chatId }) => {
   const handleChangeMessage = (message) => {
     setMessage(message);
   };
+
+  const markChatAsRead = () => {
+    markAsRead(chatId);
+    refetchChat();
+    refetchUserChats();
+  }
 
   const handleSendMessage = async () => {
     if (message.length > 0) {

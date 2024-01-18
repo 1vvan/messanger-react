@@ -22,3 +22,32 @@
         padding-bottom: 65px;
     }
 }
+
+.message-date{
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    & span{
+        color: #a1a1a1;
+        font-size: 12px;
+        font-weight: 500;
+        position: relative;
+        &:after,
+        &::before{
+            content: '';
+            height: 1px;
+            width: 100vw;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--font-primary-color);
+            opacity: 0.1;
+        }
+        &:after{
+            left: calc(100% + 24px);
+        }
+        &:before{
+            right: calc(100% + 24px);
+        }
+    }
+}
