@@ -1,5 +1,6 @@
 import {
   ChatsResponse,
+  EditMessageDTO,
   ISingleChat,
   RequestSendChatMessage,
   ResponceSendChatMessage,
@@ -14,7 +15,10 @@ export const chatsApi = api.injectEndpoints({
     getChat: builder.query<ISingleChat, number>({
       query: (chatId) => ({ url: `/chats/${chatId}?offset=0` }),
     }),
-    sendMessage: builder.mutation<ResponceSendChatMessage, RequestSendChatMessage>({
+    sendMessage: builder.mutation<
+      ResponceSendChatMessage,
+      RequestSendChatMessage
+    >({
       query: (data: RequestSendChatMessage) => ({
         url: `/chats/${data.chatId}`,
         method: "POST",
@@ -33,7 +37,28 @@ export const chatsApi = api.injectEndpoints({
         method: "POST",
       }),
     }),
+    deleteMessage: builder.mutation<string, number>({
+      query: (messageId: number) => ({
+        url: `/messages/${messageId}/delete`,
+        method: "POST",
+      }),
+    }),
+    editMessage: builder.mutation<ResponceSendChatMessage, EditMessageDTO>({
+      query: (data: EditMessageDTO) => ({
+        url: `/messages/${data.messageId}`,
+        method: "POST",
+        body: { message: data.message },
+      }),
+    }),
   }),
 });
 
-export const {useGetAllUserChatsQuery, useGetChatQuery, useSendMessageMutation, useMuteChatMutation, useUnmuteChatMutation} = chatsApi
+export const {
+  useGetAllUserChatsQuery,
+  useGetChatQuery,
+  useSendMessageMutation,
+  useMuteChatMutation,
+  useUnmuteChatMutation,
+  useDeleteMessageMutation,
+  useEditMessageMutation
+} = chatsApi;

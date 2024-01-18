@@ -20,7 +20,10 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ chatId }) => {
         chat={models.chat}
         setIsModalActive={commands.setIsChatModalActive}
       />
-      <ChatMain chat={models.chat} chatIsLoading={models.chatIsLoading} />
+      <ChatMain
+        chat={models.chat}
+        chatIsLoading={models.chatIsLoading}
+      />
       <ChatBottom
         message={models.message}
         handleChangeMessage={commands.handleChangeMessage}

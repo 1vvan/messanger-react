@@ -75,3 +75,8 @@ export interface ResponceSendChatMessage {
   created_at: string;
   id: number;
 }
+
+export interface EditMessageDTO {
+  messageId: number;
+  message: string
+}
