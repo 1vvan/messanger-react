@@ -1,0 +1,29 @@
+.accout-settings-form{
+    &-field{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        &-input{
+            max-width: 140px;
+            font-family: "SF Pro Display", sans-serif;
+            height: 25px;
+            color: var(--font-primary-color);
+            font-size: 15px;
+            background: transparent;
+            border-bottom: 2px solid var(--font-primary-color);
+            transition: all .3s ease 0s;
+            &:focus{
+                border-color: #2D9CDB;
+                transition: all .3s ease 0s;
+            }
+            &--error{
+                border-color: red;
+            }
+        }
+        & span{
+            max-width: 270px;
+            color: red;
+        }
+    }
+}

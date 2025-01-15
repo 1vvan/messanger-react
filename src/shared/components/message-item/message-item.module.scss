@@ -1,0 +1,94 @@
+.message-item {
+    display: flex;
+    width: fit-content;
+    gap: 9px;
+    
+    &__avatar{
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: rgb(255, 255, 255, 0.1);
+        & img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    
+    &__content {
+        background: var(--bg-dark-color);
+        padding: 12px 18px;
+        border-radius: 0px 16px 16px 16px;
+        width: fit-content;
+        &_text {
+            color: var(--font-primary-color);
+            width: auto;
+            background-color: transparent;
+        }
+
+        &_info {
+            padding-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+
+            & span {
+                color: var(--font-transparent-color);
+                font-size: 12px;
+            }
+        }
+    }
+
+    &--your {
+        margin-left: auto;
+
+        & .message-item__content {
+            border-radius: 16px 16px 0px 16px;
+            &_info {
+                justify-content: flex-end;
+            }
+        }
+    }
+
+    &__popper {
+        padding-bottom: 15px;
+        background-color: var(--bg-light-color);
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0px 10px 44px -12px rgba(0, 0, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        &_delete{
+            color: red;
+            font-weight: 500;
+        }
+        &_edit{
+            color: var(--font-primary-color);
+            font-weight: 500;
+        }
+    }
+}
+
+.edit-modal-input{
+    width: 100%;
+    background: transparent;
+    color: var(--font-primary-color);
+    font-size: 16px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--font-primary-color);
+    transition: all .3s ease 0s;
+    &:focus{
+        border-color: rgb(6, 141, 225);
+        transition: all .3s ease 0s;
+    }
+}
+.edit-modal-buttons{
+    padding-top: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+}

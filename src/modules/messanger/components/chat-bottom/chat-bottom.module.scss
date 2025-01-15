@@ -1,0 +1,87 @@
+.chat-window__bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 20;
+    width: 77vw;
+    background: var(--bg-light-color);
+    border-top: 1px solid var(--bg-dark-color);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 18px;
+    gap: 11px;
+
+    @media (max-width: 997px) {
+        width: 60vw;
+    }
+
+    @media (max-width: 767px) {
+        width: 100vw;
+    }
+
+    &_clip {
+        cursor: pointer;
+        height: 16px;
+        width: 16px;
+    }
+
+    &_message {
+        width: 100%;
+        height: 100%;
+        padding: 6px 0px;
+
+        & textarea {
+            resize: none;
+            word-wrap: break-word;
+            border-radius: 12px;
+            padding: 0px 12px;
+            padding-top: 10px;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-darked-color);
+            color: var(--font-primary-color);
+            font-family: "SF Pro Display", sans-serif;
+            font-size: 14px;
+
+            @media (max-width: 767px){
+                padding: 10px 12px;
+            }
+
+            &::placeholder {
+                color: var(--font-transparent-color);
+                font-family: "SF Pro Display", sans-serif;
+                font-size: 14px;
+            }
+        }
+    }
+
+    &_button {
+        text-wrap: nowrap;
+        font-weight: 500;
+        color: #27AE60;
+        opacity: 0.5;
+        font-family: "SF Pro Display", sans-serif;
+        transition: all .3s ease 0s;
+        pointer-events: none;
+        cursor: default;
+
+        &:hover {
+            color: #1b7a58;
+        }
+
+        &--active {
+            opacity: 1;
+            transition: all .3s ease 0s;
+            pointer-events: all;
+            cursor: pointer;
+        }
+        @media (max-width: 767px){
+            max-width: 30px;
+            overflow: hidden;
+            text-wrap: nowrap;
+        }
+    }
+}

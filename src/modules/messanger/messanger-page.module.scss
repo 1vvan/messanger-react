@@ -1,0 +1,22 @@
+.messanger {
+    margin-left: auto;
+    width: 77vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    background: var(--bg-darked-color);
+
+    &__empty {
+        color: var(--font-primary-color);
+        font-weight: 700;
+        font-size: 24px;
+    }
+    @media (max-width: 997px){
+        width: 60vw;
+    }
+    @media (max-width: 767px){
+        width: 100vw;
+    }
+}
