@@ -3,6 +3,7 @@ import { RowContainer } from "@/shared/components/row-container/row-container";
 import styles from "./account-settings-modal-form.module.scss";
 import clsx from "clsx";
 import { IAccountSettings } from "@/shared/types/user-api-types";
+import ImageUploadField from "@/shared/components/image-upload-field/image-upload-field";
 
 interface AccountSettingsModalFormProps {
   settingsFormData: IAccountSettings;
@@ -25,6 +26,10 @@ export const AccountSettingsModalForm: React.FC<AccountSettingsModalFormProps> =
       noValidate
       onSubmit={(e) => handleConfirmUpdateAccount(e)}
     >
+      <ImageUploadField
+        handleFileChange={handleFileChange}
+        profilePictureUrl={settingsFormData.profilePicture}
+      />
       <RowContainer label="Name:">
         <div className={styles["accout-settings-form-field"]}>
           <input
@@ -81,7 +86,7 @@ export const AccountSettingsModalForm: React.FC<AccountSettingsModalFormProps> =
           <span>{formDataErorrs.lang}</span>
         </div>
       </RowContainer>
-      <RowContainer label="Profile Picture:">
+      {/* <RowContainer label="Profile Picture:">
         <div className={styles["accout-settings-form-field"]}>
           <input
             className={clsx(styles["accout-settings-form-field-input"], {
@@ -93,7 +98,7 @@ export const AccountSettingsModalForm: React.FC<AccountSettingsModalFormProps> =
           />
           <span>{formDataErorrs.profilePicture}</span>
         </div>
-      </RowContainer>
+      </RowContainer> */}
     </form>
   );
 };
