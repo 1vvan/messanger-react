@@ -1,5 +1,6 @@
 import { IUser } from "@/shared/types/IUser";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 interface UserState {
   user: IUser;
@@ -15,6 +16,7 @@ const initialState: UserState = {
     profilePicture: "",
     lang: "",
     email: "",
+    themeMode: 'light'
   },
   isLoading: false,
   error: "",

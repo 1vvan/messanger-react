@@ -52,6 +52,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
     themeColorsInit(theme);
   }, [theme]);
 
+  const handleChangeTheme = () => {
+    toggleColorMode();
+    commands.handleChangeUserSavedTheme();
+  }
+
   return (
     <>
       <section
@@ -142,7 +147,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <>
             <RowContainer label="Dark Mode">
               <Switch
-                onChange={toggleColorMode}
+                onChange={handleChangeTheme}
                 checked={mode === "dark" ? true : false}
                 uncheckedIcon={false}
                 checkedIcon={false}

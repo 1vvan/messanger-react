@@ -12,10 +12,13 @@ export const useMessanger = () => {
   const [selectedChat, setSelectedChat] = useState<IChat>();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  
   useEffect(() => {
     if (user && !isUserLoading) {
       dispatch(setUser(user));
+
+      if (user.themeMode) {
+        localStorage.setItem("themeMode", user.themeMode);
+      }
     }
   }, [user, dispatch, isUserLoading]);
 

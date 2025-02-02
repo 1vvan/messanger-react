@@ -1,3 +1,12 @@
+export interface ApiError {
+  status: number;
+  data?: {
+    message?: string;
+    error?: string;
+    statusCode?: number;
+  };
+}
+
 export interface LoginDTO {
   email: string;
   password: string;

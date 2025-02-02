@@ -8,7 +8,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <div className="wrapper">
       <ToastContainer
         limit={2}
-        position="bottom-right"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

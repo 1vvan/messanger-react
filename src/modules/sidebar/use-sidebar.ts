@@ -98,13 +98,12 @@ export const useSidebar = ({ user, userChats }) => {
               email: response?.data.email,
               profilePicture: response?.data.profilePicture
             });
-            // dispatch(setUser(response?.data));
             toast.success("Update account successfully");
           }
         });
       }
     }
-  };  
+  };
 
   const handleCancelUpdate = () => {
     setSettingFormData({
@@ -116,6 +115,23 @@ export const useSidebar = ({ user, userChats }) => {
     });
     setFormDataErorrs(initialUserData);
     setIsUpdateUser(false);
+  };
+
+  const handleChangeUserSavedTheme = () => {
+    const newMode = localStorage.getItem("themeMode");
+
+    if (newMode !== null) {
+      const formData = new FormData();
+      formData.append('themeMode', newMode);
+  
+      updateUser({ userId: user._id, data: formData }).then(() => {
+        dispatch(setUser({
+          ...user,
+          themeMode: newMode,
+        }));
+        toast.success("Theme changed successfully");
+      });
+    } 
   };
 
   const handleSortOptionChange = (selectedOption) => {
@@ -188,6 +204,7 @@ export const useSidebar = ({ user, userChats }) => {
       handleCancelUpdate,
       handleSortOptionChange,
       handleSearchChange,
+      handleChangeUserSavedTheme
     },
   };
 };

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { regSchema } from "../../../shared/schemas/regSchema";
 import { useFetchRegisterMutation } from "@/app/services/userApi";
-import { RegisterDTO } from "@/shared/types/user-api-types";
+import { ApiError, RegisterDTO } from "@/shared/types/user-api-types";
 import { ROUTES } from "@/shared/constants/routes/routes";
 import { toast } from "react-toastify";
 
@@ -30,7 +30,7 @@ export const useReg = () => {
     lang: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [register, { isLoading, error }] = useFetchRegisterMutation();
+  const [register, { isLoading, error: regError }] = useFetchRegisterMutation();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -68,13 +68,17 @@ export const useReg = () => {
     }
   };
 
+  useEffect(() => {
+    const err = regError as ApiError;
+    if (err) {
+      toast.error(err.data?.message || "Error. Try again later");
+    }
+  }, [regError]);
+
   const handleSubmitReg = async (e) => {
     e.preventDefault();
     if (await handleRegValidation()) {
       register(registerData).then(() => {
-        if (error) {
-          toast.error("Error, try again later");
-        }
         setRegisterData(initRegData);
         setRegErrors(initRegData);
         document.location.href = ROUTES.LOGIN.path;

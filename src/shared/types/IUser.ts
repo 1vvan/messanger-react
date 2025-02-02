@@ -5,4 +5,5 @@ export interface IUser {
   profilePicture: string;
   lang: string;
   email: string;
+  themeMode: 'light' | 'dark';
 }

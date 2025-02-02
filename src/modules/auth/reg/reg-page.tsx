@@ -15,11 +15,25 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/constants/routes/routes";
 import { useReg } from "./use-reg";
+import { ToastContainer } from "react-toastify";
 
 export const RegPage = () => {
   const { models, commands } = useReg();
   return (
     <section className={styles["auth"]}>
+      <ToastContainer
+        limit={2}
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <form
         autoComplete="off"
         onSubmit={commands.handleSubmitReg}

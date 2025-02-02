@@ -1,8 +1,8 @@
 import { ROUTES } from "@/shared/constants/routes/routes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginSchema } from "../../../shared/schemas/loginSchema";
 import { useFetchLoginMutation } from "@/app/services/userApi";
-import { LoginDTO, LoginResponce } from "@/shared/types/user-api-types";
+import { ApiError, LoginDTO, LoginResponce } from "@/shared/types/user-api-types";
 import { toast } from "react-toastify";
 
 export const logout = () => {
@@ -26,7 +26,7 @@ export const useLogin = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [login, { isLoading, error }] = useFetchLoginMutation();
+  const [login, { isLoading, error: loginError }] = useFetchLoginMutation();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -63,19 +63,23 @@ export const useLogin = () => {
     }
   };
 
+  useEffect(() => {
+    const err = loginError as ApiError;
+    if (err) {
+      toast.error(err.data?.message || "Error. Try again later");
+    }
+  }, [loginError]);
+
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     if (await handleLoginValidation()) {
       login(loginData).then((response) => {
         const responseData = response as { data: LoginResponce };
-        if (responseData.data && !error) {
+        if (responseData.data) {
           localStorage.setItem("accessToken", responseData.data.access_token);
           setLoginData(initLoginData);
           setLoginErrors(initLoginData);
           document.location.href = ROUTES.MESSANGER.path;
-        }
-        if (error) {
-          toast.error("Error");
         }
       });
     }

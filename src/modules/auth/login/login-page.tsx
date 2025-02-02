@@ -15,11 +15,25 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLogin } from "./use-login";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/constants/routes/routes";
+import { ToastContainer } from "react-toastify";
 
 export const LoginPage = () => {
   const { models, commands } = useLogin();
   return (
     <section className={styles["auth"]}>
+      <ToastContainer
+        limit={2}
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <form
         autoComplete="off"
         onSubmit={commands.handleSubmitLogin}
